@@ -1,0 +1,15 @@
+{
+  "/api/messages/route": "app/api/messages/route.js",
+  "/api/team/route": "app/api/team/route.js",
+  "/api/hero/route": "app/api/hero/route.js",
+  "/api/services/route": "app/api/services/route.js",
+  "/api/portfolio/route": "app/api/portfolio/route.js",
+  "/page": "app/page.js",
+  "/admin/settings/page": "app/admin/settings/page.js",
+  "/admin/messages/page": "app/admin/messages/page.js",
+  "/admin/team/page": "app/admin/team/page.js",
+  "/admin/page": "app/admin/page.js",
+  "/admin/hero/page": "app/admin/hero/page.js",
+  "/admin/services/page": "app/admin/services/page.js",
+  "/admin/portfolio/page": "app/admin/portfolio/page.js"
+}

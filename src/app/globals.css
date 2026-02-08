@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #f8fafc; /* Putih sedikit kebiruan sangat lembut */
+  --foreground: #0f172a;
+  --primary: #2563eb;
+}
+
+/* Efek halusan buat scroll */
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
+}
+
+@keyframes float-random {
+  0% { transform: translate(0, 0) rotate(0deg); }
+  33% { transform: translate(10px, -15px) rotate(5deg); }
+  66% { transform: translate(-10px, 10px) rotate(-5deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+.animate-float-random {
+  animation: float-random 8s ease-in-out infinite;
+}
+
+.animate-float-random-slow {
+  animation: float-random 12s ease-in-out infinite;
+}
+
+.animate-float-random-fast {
+  animation: float-random 6s ease-in-out infinite;
+}

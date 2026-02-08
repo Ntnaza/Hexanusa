@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now())
+}
+
+model Service {
+  id        Int      @id @default(autoincrement())
+  title     String
+  desc      String   @db.Text
+  iconName  String   
+  color     String   @default("blue")
+  order     Int      @default(0)
+}
+
+model Portfolio {
+  id        Int      @id @default(autoincrement())
+  title     String
+  category  String
+  image     String   @db.Text
+  link      String?  @db.Text
+  order     Int      @default(0)
+}
+
+model TeamMember {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  image     String   @db.Text
+  bio       String   @db.Text
+  linkedin  String?
+  github    String?
+  instagram String?
+  order     Int      @default(0)
+}
+
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String
+  email     String
+  message   String   @db.Text
+  createdAt DateTime @default(now())
+  isRead    Boolean  @default(false)
+}
+
+model SiteSettings {
+  id            Int      @id @default(1)
+  heroTitle     String   @db.Text
+  heroDesc      String   @db.Text
+  aboutTitle    String   @db.Text
+  aboutDesc     String   @db.Text
+  aboutImage    String   @db.Text
+  contactEmail  String
+  contactPhone  String
+  contactAddress String  @db.Text
+  contactMaps   String   @db.Text
+  socialIg      String?
+  socialLi      String?
+  socialGh      String?
+}
+
+model AboutFeature {
+  id    Int    @id @default(autoincrement())
+  title String
+  desc  String
+  icon  String
+  order Int    @default(0)
+}
+
+model HeroSlide {
+  id    Int    @id @default(autoincrement())
+  title String @db.Text
+  desc  String @db.Text
+  order Int    @default(0)
+}
