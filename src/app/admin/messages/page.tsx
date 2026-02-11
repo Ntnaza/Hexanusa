@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { Mail, Trash2, Loader2, MessageSquare, Clock, User, X, ExternalLink } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { markAsRead, deleteMessage } from "./actions";
+import { useToast } from "@/components/admin/Toast";
 
 export default function AdminMessages() {
+  const { toast } = useToast();
   const [messages, setMessages] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedMessage, setSelectedData] = useState<any>(null);
@@ -34,6 +36,7 @@ export default function AdminMessages() {
     e.stopPropagation();
     if (confirm("Hapus pesan ini secara permanen?")) {
       await deleteMessage(id);
+      toast("Pesan telah dihapus.", "success");
       fetchMessages();
     }
   };
@@ -57,15 +60,9 @@ export default function AdminMessages() {
         </div>
       </div>
 
-      <div className="bg-white rounded-[40px] border border-slate-100 shadow-2xl shadow-slate-200/50 overflow-hidden min-h-[500px]">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center h-[500px] gap-4">
-            <Loader2 className="w-10 h-10 text-amber-600 animate-spin" />
-            <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Membuka Kotak Pesan...</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
+      <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden min-h-[500px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
               <thead>
                 <tr className="bg-slate-50/50 border-b border-slate-100">
                   <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] text-center">Status</th>

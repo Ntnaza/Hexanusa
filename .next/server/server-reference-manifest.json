@@ -1,9 +1,9 @@
 {
   "node": {
-    "40f23f91ed74e869633e15f580529aeb3639cbade3": {
+    "40c25bc17ed7991795076a15e44bd97eda4ffdd796": {
       "workers": {
         "app/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cactions%5C%5Ccontact.ts%22%2C%5B%5B%2240f23f91ed74e869633e15f580529aeb3639cbade3%22%2C%22sendContactMessage%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cactions%5C%5Ccontact.ts%22%2C%5B%5B%2240c25bc17ed7991795076a15e44bd97eda4ffdd796%22%2C%22sendContactMessage%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -11,10 +11,10 @@
         "app/page": "action-browser"
       }
     },
-    "4009b57c65ac8a6ada4425b1091b08cdf19cd1d03c": {
+    "405ced9b41e070e329e7ba9dcf87af5fc06987827a": {
       "workers": {
         "app/admin/hero/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Chero%5C%5Cactions.ts%22%2C%5B%5B%224009b57c65ac8a6ada4425b1091b08cdf19cd1d03c%22%2C%22deleteHeroSlide%22%5D%2C%5B%224022e18291ac426e74e1df7b1f99291ba1a498c4a0%22%2C%22saveHeroSlide%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Chero%5C%5Cactions.ts%22%2C%5B%5B%22405ced9b41e070e329e7ba9dcf87af5fc06987827a%22%2C%22deleteHeroSlide%22%5D%2C%5B%2240c4b9e69fc0853d2327a39b16b2e0051956c347ef%22%2C%22saveHeroSlide%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -22,10 +22,10 @@
         "app/admin/hero/page": "action-browser"
       }
     },
-    "4022e18291ac426e74e1df7b1f99291ba1a498c4a0": {
+    "40c4b9e69fc0853d2327a39b16b2e0051956c347ef": {
       "workers": {
         "app/admin/hero/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Chero%5C%5Cactions.ts%22%2C%5B%5B%224009b57c65ac8a6ada4425b1091b08cdf19cd1d03c%22%2C%22deleteHeroSlide%22%5D%2C%5B%224022e18291ac426e74e1df7b1f99291ba1a498c4a0%22%2C%22saveHeroSlide%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Chero%5C%5Cactions.ts%22%2C%5B%5B%22405ced9b41e070e329e7ba9dcf87af5fc06987827a%22%2C%22deleteHeroSlide%22%5D%2C%5B%2240c4b9e69fc0853d2327a39b16b2e0051956c347ef%22%2C%22saveHeroSlide%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -33,54 +33,10 @@
         "app/admin/hero/page": "action-browser"
       }
     },
-    "402ec15ee42d46a909089033aa1ae352b6a03aa9b5": {
-      "workers": {
-        "app/admin/messages/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cmessages%5C%5Cactions.ts%22%2C%5B%5B%22402ec15ee42d46a909089033aa1ae352b6a03aa9b5%22%2C%22deleteMessage%22%5D%2C%5B%22403e59c6c177cd01ea3a070819599882e27992ccf5%22%2C%22markAsRead%22%5D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/admin/messages/page": "action-browser"
-      }
-    },
-    "403e59c6c177cd01ea3a070819599882e27992ccf5": {
-      "workers": {
-        "app/admin/messages/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cmessages%5C%5Cactions.ts%22%2C%5B%5B%22402ec15ee42d46a909089033aa1ae352b6a03aa9b5%22%2C%22deleteMessage%22%5D%2C%5B%22403e59c6c177cd01ea3a070819599882e27992ccf5%22%2C%22markAsRead%22%5D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/admin/messages/page": "action-browser"
-      }
-    },
-    "4000e984a969d44613e222be6670f6b1c3047f8941": {
-      "workers": {
-        "app/admin/team/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cteam%5C%5Cactions.ts%22%2C%5B%5B%224000e984a969d44613e222be6670f6b1c3047f8941%22%2C%22deleteTeamMember%22%5D%2C%5B%224040b34b382468603f050de7a01460a83a201291c8%22%2C%22saveTeamMember%22%5D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/admin/team/page": "action-browser"
-      }
-    },
-    "4040b34b382468603f050de7a01460a83a201291c8": {
-      "workers": {
-        "app/admin/team/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cteam%5C%5Cactions.ts%22%2C%5B%5B%224000e984a969d44613e222be6670f6b1c3047f8941%22%2C%22deleteTeamMember%22%5D%2C%5B%224040b34b382468603f050de7a01460a83a201291c8%22%2C%22saveTeamMember%22%5D%5D%5D%5D&__client_imported__=true!",
-          "async": false
-        }
-      },
-      "layer": {
-        "app/admin/team/page": "action-browser"
-      }
-    },
-    "002151d8a7143cb1b32054cf9c8dfe37edc030f76b": {
+    "00375bcde28ca55542c7acc928b6228c3cfcf5e527": {
       "workers": {
         "app/admin/services/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cactions.ts%22%2C%5B%5B%22002151d8a7143cb1b32054cf9c8dfe37edc030f76b%22%2C%22getServices%22%5D%2C%5B%22408aa56cccb2fa0b22c4fdf3ea2e58e189ac43cb9e%22%2C%22saveService%22%5D%2C%5B%2240baa64cac16745db48591e31d5c1a7b0b76db6db1%22%2C%22deleteService%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cactions.ts%22%2C%5B%5B%2200375bcde28ca55542c7acc928b6228c3cfcf5e527%22%2C%22getServices%22%5D%2C%5B%22409001cfef629d1d00c9b0b6ab5e80e878b90c4473%22%2C%22deleteService%22%5D%2C%5B%2240a3e2dfe4e93d2a3f40aaab2afdbf2b7e00ee272f%22%2C%22saveService%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -88,10 +44,10 @@
         "app/admin/services/page": "action-browser"
       }
     },
-    "408aa56cccb2fa0b22c4fdf3ea2e58e189ac43cb9e": {
+    "409001cfef629d1d00c9b0b6ab5e80e878b90c4473": {
       "workers": {
         "app/admin/services/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cactions.ts%22%2C%5B%5B%22002151d8a7143cb1b32054cf9c8dfe37edc030f76b%22%2C%22getServices%22%5D%2C%5B%22408aa56cccb2fa0b22c4fdf3ea2e58e189ac43cb9e%22%2C%22saveService%22%5D%2C%5B%2240baa64cac16745db48591e31d5c1a7b0b76db6db1%22%2C%22deleteService%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cactions.ts%22%2C%5B%5B%2200375bcde28ca55542c7acc928b6228c3cfcf5e527%22%2C%22getServices%22%5D%2C%5B%22409001cfef629d1d00c9b0b6ab5e80e878b90c4473%22%2C%22deleteService%22%5D%2C%5B%2240a3e2dfe4e93d2a3f40aaab2afdbf2b7e00ee272f%22%2C%22saveService%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -99,10 +55,10 @@
         "app/admin/services/page": "action-browser"
       }
     },
-    "40baa64cac16745db48591e31d5c1a7b0b76db6db1": {
+    "40a3e2dfe4e93d2a3f40aaab2afdbf2b7e00ee272f": {
       "workers": {
         "app/admin/services/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cactions.ts%22%2C%5B%5B%22002151d8a7143cb1b32054cf9c8dfe37edc030f76b%22%2C%22getServices%22%5D%2C%5B%22408aa56cccb2fa0b22c4fdf3ea2e58e189ac43cb9e%22%2C%22saveService%22%5D%2C%5B%2240baa64cac16745db48591e31d5c1a7b0b76db6db1%22%2C%22deleteService%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cservices%5C%5Cactions.ts%22%2C%5B%5B%2200375bcde28ca55542c7acc928b6228c3cfcf5e527%22%2C%22getServices%22%5D%2C%5B%22409001cfef629d1d00c9b0b6ab5e80e878b90c4473%22%2C%22deleteService%22%5D%2C%5B%2240a3e2dfe4e93d2a3f40aaab2afdbf2b7e00ee272f%22%2C%22saveService%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -110,10 +66,10 @@
         "app/admin/services/page": "action-browser"
       }
     },
-    "40101859ca0df2d7f8db371f061f566036399e359d": {
+    "40141d77cfceb22f9d63ddebb43245b44fd4e23660": {
       "workers": {
         "app/admin/portfolio/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cportfolio%5C%5Cactions.ts%22%2C%5B%5B%2240101859ca0df2d7f8db371f061f566036399e359d%22%2C%22savePortfolio%22%5D%2C%5B%2240d67e5286d9dd92d09e794705683f6349ad965380%22%2C%22deletePortfolio%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cportfolio%5C%5Cactions.ts%22%2C%5B%5B%2240141d77cfceb22f9d63ddebb43245b44fd4e23660%22%2C%22savePortfolio%22%5D%2C%5B%224096f5b4c1e0e4e45247eb1b7e8a1859f1842a3d24%22%2C%22deletePortfolio%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
@@ -121,18 +77,62 @@
         "app/admin/portfolio/page": "action-browser"
       }
     },
-    "40d67e5286d9dd92d09e794705683f6349ad965380": {
+    "4096f5b4c1e0e4e45247eb1b7e8a1859f1842a3d24": {
       "workers": {
         "app/admin/portfolio/page": {
-          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cportfolio%5C%5Cactions.ts%22%2C%5B%5B%2240101859ca0df2d7f8db371f061f566036399e359d%22%2C%22savePortfolio%22%5D%2C%5B%2240d67e5286d9dd92d09e794705683f6349ad965380%22%2C%22deletePortfolio%22%5D%5D%5D%5D&__client_imported__=true!",
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cportfolio%5C%5Cactions.ts%22%2C%5B%5B%2240141d77cfceb22f9d63ddebb43245b44fd4e23660%22%2C%22savePortfolio%22%5D%2C%5B%224096f5b4c1e0e4e45247eb1b7e8a1859f1842a3d24%22%2C%22deletePortfolio%22%5D%5D%5D%5D&__client_imported__=true!",
           "async": false
         }
       },
       "layer": {
         "app/admin/portfolio/page": "action-browser"
+      }
+    },
+    "4016aa199d4bb7aa3507996884211a029fb4565f67": {
+      "workers": {
+        "app/admin/team/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cteam%5C%5Cactions.ts%22%2C%5B%5B%224016aa199d4bb7aa3507996884211a029fb4565f67%22%2C%22saveTeamMember%22%5D%2C%5B%2240f07b88631bc88ee1569199fb24f8868e3f13a066%22%2C%22deleteTeamMember%22%5D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/admin/team/page": "action-browser"
+      }
+    },
+    "40f07b88631bc88ee1569199fb24f8868e3f13a066": {
+      "workers": {
+        "app/admin/team/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cteam%5C%5Cactions.ts%22%2C%5B%5B%224016aa199d4bb7aa3507996884211a029fb4565f67%22%2C%22saveTeamMember%22%5D%2C%5B%2240f07b88631bc88ee1569199fb24f8868e3f13a066%22%2C%22deleteTeamMember%22%5D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/admin/team/page": "action-browser"
+      }
+    },
+    "40cee82f3840e9fbf583f0cca01cefa77b65176a07": {
+      "workers": {
+        "app/admin/messages/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cmessages%5C%5Cactions.ts%22%2C%5B%5B%2240cee82f3840e9fbf583f0cca01cefa77b65176a07%22%2C%22markAsRead%22%5D%2C%5B%2240e22fffae8db4f01f3d73e2a02348b321487afa84%22%2C%22deleteMessage%22%5D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/admin/messages/page": "action-browser"
+      }
+    },
+    "40e22fffae8db4f01f3d73e2a02348b321487afa84": {
+      "workers": {
+        "app/admin/messages/page": {
+          "moduleId": "(action-browser)/./node_modules/next/dist/build/webpack/loaders/next-flight-action-entry-loader.js?actions=%5B%5B%22C%3A%5C%5Cxampp%5C%5Chtdocs%5C%5CHexanusa%5C%5Csrc%5C%5Capp%5C%5Cadmin%5C%5Cmessages%5C%5Cactions.ts%22%2C%5B%5B%2240cee82f3840e9fbf583f0cca01cefa77b65176a07%22%2C%22markAsRead%22%5D%2C%5B%2240e22fffae8db4f01f3d73e2a02348b321487afa84%22%2C%22deleteMessage%22%5D%5D%5D%5D&__client_imported__=true!",
+          "async": false
+        }
+      },
+      "layer": {
+        "app/admin/messages/page": "action-browser"
       }
     }
   },
   "edge": {},
-  "encryptionKey": "+SaIqosEzN0SOatCJyGoSdXMTxt+Q9cTpgdmF8X+h7I="
+  "encryptionKey": "mZ5h9pujxZvvQQw5rkWVAS0KQLtbNPFilWD4b4nxj60="
 }

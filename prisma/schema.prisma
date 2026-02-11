@@ -55,6 +55,9 @@ model ContactMessage {
 
 model SiteSettings {
   id            Int      @id @default(1)
+  companyName   String   @default("Hexanusa")
+  siteLogo      String?  @db.Text
+  siteIcon      String?  @db.Text
   heroTitle     String   @db.Text
   heroDesc      String   @db.Text
   aboutTitle    String   @db.Text

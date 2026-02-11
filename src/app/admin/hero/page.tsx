@@ -4,8 +4,10 @@ import { useState, useEffect } from "react";
 import { Plus, Pencil, Trash2, Layout, Loader2, Save, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { saveHeroSlide, deleteHeroSlide } from "./actions";
+import { useToast } from "@/components/admin/Toast";
 
 export default function AdminHero() {
+  const { toast } = useToast();
   const [slides, setSlides] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -32,9 +34,18 @@ export default function AdminHero() {
       desc: formData.get("desc") as string,
     };
     await saveHeroSlide(data);
+    toast("Slide hero berhasil disimpan!", "success");
     setFormLoading(false);
     setIsModalOpen(false);
     fetchSlides();
+  };
+
+  const handleDelete = async (id: number) => {
+    if(confirm("Hapus slide ini?")) { 
+      await deleteHeroSlide(id); 
+      toast("Slide telah dihapus.", "success");
+      fetchSlides(); 
+    }
   };
 
   return (
@@ -50,9 +61,7 @@ export default function AdminHero() {
       </div>
 
       <div className="grid grid-cols-1 gap-6">
-        {loading ? (
-          <div className="h-64 flex items-center justify-center"><Loader2 className="animate-spin text-blue-600" /></div>
-        ) : slides.map((slide, idx) => (
+        {slides.map((slide, idx) => (
           <div key={slide.id} className="bg-white p-10 rounded-[40px] border border-slate-100 shadow-xl shadow-slate-200/50 flex flex-col md:flex-row justify-between items-center gap-8 group transition-all hover:border-blue-200">
             <div className="flex-grow space-y-4">
               <div className="flex items-center gap-3 text-[10px] font-black text-blue-600 uppercase tracking-widest">
@@ -64,7 +73,7 @@ export default function AdminHero() {
             </div>
             <div className="flex gap-3 shrink-0">
               <button onClick={() => { setEditingData(slide); setIsModalOpen(true); }} className="p-4 rounded-2xl bg-slate-50 text-slate-600 hover:bg-blue-600 hover:text-white transition-all"><Pencil className="w-5 h-5" /></button>
-              <button onClick={async () => { if(confirm("Hapus slide ini?")) { await deleteHeroSlide(slide.id); fetchSlides(); } }} className="p-4 rounded-2xl bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white transition-all"><Trash2 className="w-5 h-5" /></button>
+              <button onClick={() => handleDelete(slide.id)} className="p-4 rounded-2xl bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white transition-all"><Trash2 className="w-5 h-5" /></button>
             </div>
           </div>
         ))}

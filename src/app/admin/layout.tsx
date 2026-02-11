@@ -1,20 +1,23 @@
 "use client";
 
-import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useState, useEffect } from "react";
-import { 
-  LayoutDashboard, 
-  Briefcase, 
-  Image as ImageIcon, 
-  Users, 
-  MessageSquare, 
-  LogOut, 
-  Cpu,
-  ChevronRight,
-  Globe,
-  Layout
-} from "lucide-react";
+import { usePathname } from "next/navigation";
+import { motion, AnimatePresence } from "framer-motion";
+import Sidebar from "@/components/admin/Sidebar";
+import { Search, BellRing, Command } from "lucide-react";
+import { useEffect, useState, createContext, useContext } from "react";
+import { ToastProvider } from "@/components/admin/Toast";
+import DashboardLoading from "./loading";
+import HeroLoading from "./hero/loading";
+import TableLoading from "./services/loading";
+import SettingsLoading from "./settings/loading";
+import AboutLoading from "./about/loading";
+
+const TransitionContext = createContext({
+  targetPath: "",
+  setTargetPath: (path: string) => {},
+});
+
+export const useTransition = () => useContext(TransitionContext);
 
 export default function AdminLayout({
   children,
@@ -22,112 +25,91 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
-  const router = useRouter();
-  const [unreadCount, setUnreadCount] = useState(0);
+  const [targetPath, setTargetPath] = useState(pathname);
+  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    const fetchUnread = async () => {
-      try {
-        const response = await fetch('/api/messages');
-        const data = await response.json();
-        const count = data.filter((m: any) => !m.isRead).length;
-        setUnreadCount(count);
-      } catch (err) {}
-    };
-    if (pathname?.startsWith("/admin")) fetchUnread();
+    setIsMounted(true);
+    setTargetPath(pathname);
   }, [pathname]);
 
   if (pathname === "/admin/login") return <>{children}</>;
 
-  const menuItems = [
-    { name: "Dashboard", href: "/admin", icon: <LayoutDashboard className="w-5 h-5" /> },
-    { name: "Hero", href: "/admin/hero", icon: <Layout className="w-5 h-5" /> },
-    { name: "Layanan", href: "/admin/services", icon: <Briefcase className="w-5 h-5" /> },
-    { name: "Portofolio", href: "/admin/portfolio", icon: <ImageIcon className="w-5 h-5" /> },
-    { name: "Tim Kami", href: "/admin/team", icon: <Users className="w-5 h-5" /> },
-    { name: "Pesan", href: "/admin/messages", icon: <MessageSquare className="w-5 h-5" />, badge: unreadCount },
-    { name: "Pengaturan", href: "/admin/settings", icon: <Globe className="w-5 h-5" /> },
-  ];
-
-  const handleLogout = () => {
-    document.cookie = "admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-    router.push("/admin/login");
+  const getSkeleton = (path: string) => {
+    if (path === "/admin") return <DashboardLoading />;
+    if (path === "/admin/hero") return <HeroLoading />;
+    if (path === "/admin/about") return <AboutLoading />;
+    if (path === "/admin/settings") return <SettingsLoading />;
+    return <TableLoading />;
   };
 
+  const isNavigating = targetPath !== pathname;
+
   return (
-    <div className="min-h-screen bg-slate-50 flex">
-      {/* Sidebar Mewah */}
-      <aside className="w-72 bg-white border-r border-slate-200 flex flex-col hidden lg:flex fixed h-full z-40">
-        <div className="p-8 border-b border-slate-100">
-          <div className="flex items-center gap-2">
-            <div className="bg-blue-600 p-2 rounded-xl text-white shadow-lg shadow-blue-200">
-              <Cpu className="w-6 h-6" />
-            </div>
-            <span className="text-xl font-black text-slate-900 tracking-tighter uppercase">
-              Admin<span className="text-blue-600">Panel</span>
-            </span>
-          </div>
+    <TransitionContext.Provider value={{ targetPath, setTargetPath }}>
+      <ToastProvider>
+        <div className="min-h-screen bg-[#FDFDFE] flex selection:bg-blue-600 selection:text-white overflow-hidden text-sm">
+        {/* Progress Bar Atas */}
+        <div className="fixed top-0 left-0 right-0 z-[200] h-0.5 pointer-events-none">
+          <motion.div 
+            initial={{ width: "0%" }}
+            animate={{ width: isNavigating ? "70%" : "100%", opacity: isNavigating ? 1 : 0 }}
+            transition={{ duration: isNavigating ? 1.5 : 0.2 }}
+            className="h-full bg-blue-600 shadow-[0_0_8px_rgba(37,99,235,0.4)]"
+          />
         </div>
 
-        <nav className="flex-grow p-6 space-y-2">
-          {menuItems.map((item) => {
-            const isActive = pathname === item.href;
-            return (
-              <Link
-                key={item.name}
-                href={item.href}
-                className={`flex items-center justify-between px-5 py-4 rounded-2xl transition-all font-bold text-sm ${
-                  isActive 
-                    ? "bg-blue-600 text-white shadow-xl shadow-blue-100 scale-[1.02]" 
-                    : "text-slate-500 hover:bg-slate-50 hover:text-slate-900"
-                }`}
+        <Sidebar />
+
+        <main className="flex-grow flex flex-col h-screen relative z-10">
+          <header className="h-16 glass border-b border-slate-100 flex items-center justify-between px-6 lg:px-8 shrink-0 z-50">
+            <div className="flex items-center gap-4">
+              <div className="hidden lg:flex items-center gap-3">
+                <div className="bg-slate-900 p-2 rounded-xl text-white shadow-sm">
+                  <Command className="w-3.5 h-3.5" />
+                </div>
+                <div>
+                  <nav className="flex items-center gap-1.5 text-[8px] font-bold text-slate-400 uppercase tracking-widest mb-0.5">
+                    <span>Hexanusa</span>
+                    <span className="text-slate-300">/</span>
+                    <span className="text-blue-600">Enterprise</span>
+                  </nav>
+                  <h2 className="font-black text-slate-900 text-sm tracking-tight">
+                    {targetPath === "/admin" ? "Dashboard" : 
+                     targetPath === "/admin/about" ? "Tentang Kami" :
+                     targetPath === "/admin/settings" ? "Pengaturan Umum" :
+                     targetPath.split("/").pop()?.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                  </h2>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <div className="hidden md:flex items-center bg-white border border-slate-200 rounded-lg px-3 py-1.5 w-56 focus-within:border-blue-500 transition-all">
+                <Search className="w-3.5 h-3.5 text-slate-400" />
+                <input type="text" placeholder="Quick search..." className="bg-transparent border-none focus:outline-none text-[11px] font-medium px-2 w-full" />
+              </div>
+              <button className="p-2 rounded-lg text-slate-500 hover:bg-slate-50 border border-slate-100"><BellRing className="w-3.5 h-3.5" /></button>
+            </div>
+          </header>
+
+          <div className="flex-grow overflow-y-auto overflow-x-hidden p-6 lg:p-8 custom-scrollbar relative z-0">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={isNavigating ? "loading-" + targetPath : pathname}
+                initial={{ opacity: 0, x: 20 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -20 }}
+                transition={{ duration: 0.15, ease: "easeOut" }}
+                className="w-full max-w-7xl mx-auto"
               >
-                <div className="flex items-center gap-3">
-                  {item.icon}
-                  {item.name}
-                </div>
-                <div className="flex items-center gap-2">
-                  {item.badge && item.badge > 0 && (
-                    <span className={`px-2 py-0.5 rounded-full text-[10px] font-black ${isActive ? "bg-white text-blue-600" : "bg-blue-600 text-white"}`}>
-                      {item.badge}
-                    </span>
-                  )}
-                  {isActive && <ChevronRight className="w-4 h-4" />}
-                </div>
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="p-6 border-t border-slate-100">
-          <button onClick={handleLogout} className="flex items-center gap-3 w-full px-5 py-4 rounded-2xl text-red-500 font-bold text-sm hover:bg-red-50 transition-all">
-            <LogOut className="w-5 h-5" />
-            Keluar Sesi
-          </button>
-        </div>
-      </aside>
-
-      {/* Main Content dengan Header Detail */}
-      <main className="flex-grow flex flex-col pl-72">
-        <header className="h-24 bg-white border-b border-slate-100 flex items-center justify-between px-10 sticky top-0 z-30 shadow-sm shadow-slate-100/50">
-          <div>
-            <h2 className="font-black text-slate-900 uppercase tracking-[0.2em] text-xs">
-              {menuItems.find(i => i.href === pathname)?.name || "Control Center"}
-            </h2>
-            <p className="text-[10px] text-slate-400 font-bold mt-1">HEXANUSA MANAGEMENT SYSTEM V1.0</p>
+                {isNavigating ? getSkeleton(targetPath) : children}
+              </motion.div>
+            </AnimatePresence>
           </div>
-          <div className="flex items-center gap-5">
-            <div className="text-right hidden sm:block">
-              <p className="text-sm font-black text-slate-900">Koh Engkoh</p>
-              <p className="text-[10px] text-blue-600 font-black uppercase tracking-widest">Super Administrator</p>
-            </div>
-            <div className="w-12 h-12 rounded-2xl bg-slate-100 border-2 border-white shadow-md overflow-hidden">
-              <img src="https://i.pravatar.cc/100?u=koh" alt="admin" />
-            </div>
-          </div>
-        </header>
-        <div className="p-10 flex-grow">{children}</div>
-      </main>
-    </div>
-  );
-}
+        </main>
+              </div>
+            </ToastProvider>
+          </TransitionContext.Provider>
+        );
+      }

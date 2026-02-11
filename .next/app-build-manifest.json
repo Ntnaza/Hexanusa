@@ -26,45 +26,35 @@
       "static/chunks/main-app.js",
       "static/chunks/app/admin/loading.js"
     ],
-    "/admin/page": [
+    "/admin/hero/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/page.js"
-    ],
-    "/api/messages/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/messages/route.js"
+      "static/chunks/app/admin/hero/loading.js"
     ],
     "/admin/hero/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/admin/hero/page.js"
     ],
-    "/admin/settings/page": [
+    "/admin/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/settings/page.js"
+      "static/chunks/app/admin/page.js"
     ],
-    "/api/settings/route": [
+    "/admin/about/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/api/settings/route.js"
+      "static/chunks/app/admin/about/loading.js"
     ],
-    "/admin/messages/page": [
+    "/admin/about/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/messages/page.js"
+      "static/chunks/app/admin/about/page.js"
     ],
-    "/admin/team/page": [
+    "/admin/services/loading": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/admin/team/page.js"
-    ],
-    "/api/team/route": [
-      "static/chunks/webpack.js",
-      "static/chunks/main-app.js",
-      "static/chunks/app/api/team/route.js"
+      "static/chunks/app/admin/services/loading.js"
     ],
     "/admin/services/page": [
       "static/chunks/webpack.js",
@@ -76,6 +66,11 @@
       "static/chunks/main-app.js",
       "static/chunks/app/api/services/route.js"
     ],
+    "/admin/portfolio/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/portfolio/loading.js"
+    ],
     "/admin/portfolio/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
@@ -85,6 +80,46 @@
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
       "static/chunks/app/api/portfolio/route.js"
+    ],
+    "/admin/team/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/team/loading.js"
+    ],
+    "/admin/team/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/team/page.js"
+    ],
+    "/api/team/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/team/route.js"
+    ],
+    "/admin/messages/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/messages/loading.js"
+    ],
+    "/admin/messages/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/messages/page.js"
+    ],
+    "/api/messages/route": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/api/messages/route.js"
+    ],
+    "/admin/settings/loading": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/settings/loading.js"
+    ],
+    "/admin/settings/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/admin/settings/page.js"
     ]
   }
 }

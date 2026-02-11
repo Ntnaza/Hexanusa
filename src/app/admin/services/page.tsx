@@ -5,8 +5,10 @@ import { Plus, Pencil, Trash2, HelpCircle, Briefcase, Loader2 } from "lucide-rea
 import * as LucideIcons from "lucide-react";
 import ServiceForm from "./ServiceForm";
 import { deleteService } from "./actions";
+import { useToast } from "@/components/admin/Toast";
 
 export default function AdminServices() {
+  const { toast } = useToast();
   const [services, setServices] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -37,6 +39,7 @@ export default function AdminServices() {
   const handleDelete = async (id: number) => {
     if (confirm("Apakah Anda yakin ingin menghapus layanan ini?")) {
       await deleteService(id);
+      toast("Layanan berhasil dihapus.", "success");
       fetchServices();
     }
   };
@@ -57,15 +60,9 @@ export default function AdminServices() {
         </button>
       </div>
 
-      <div className="bg-white rounded-[40px] border border-slate-100 shadow-2xl shadow-slate-200/50 overflow-hidden min-h-[500px]">
-        {loading ? (
-          <div className="flex flex-col items-center justify-center h-[500px] gap-4">
-            <Loader2 className="w-10 h-10 text-blue-600 animate-spin" />
-            <p className="text-slate-400 font-bold uppercase tracking-widest text-xs">Menyiapkan Data...</p>
-          </div>
-        ) : (
-          <div className="overflow-x-auto">
-            <table className="w-full text-left">
+      <div className="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden min-h-[500px]">
+        <div className="overflow-x-auto">
+          <table className="w-full text-left">
               <thead>
                 <tr className="bg-slate-50/50 border-b border-slate-100">
                   <th className="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-[0.2em]">Visual</th>

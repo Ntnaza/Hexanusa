@@ -34,10 +34,13 @@ async function main() {
     ]
   });
 
-  // 2. Pengaturan Umum (Site Settings) tanpa heroTitle/heroDesc lama
+  // 2. Pengaturan Umum (Site Settings)
   await prisma.siteSettings.create({
     data: {
       id: 1,
+      companyName: "Hexanusa Digital",
+      siteLogo: "/logo/hexa.png",
+      siteIcon: "/logo/hexa.png",
       heroTitle: "Membangun Masa Depan Digital Anda dengan Presisi Tinggi.",
       heroDesc: "Hexanusa menghadirkan ekosistem teknologi cerdas untuk membantu transformasi digital bisnis Anda menjadi lebih efisien, skalabel, dan unggul dalam kompetisi global.",
       aboutTitle: "Kami Merancang dan Membangun Produk Digital yang Berdampak.",
