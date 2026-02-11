@@ -118,7 +118,6 @@ export default function AdminMessages() {
               </div>
             )}
           </div>
-        )}
       </div>
 
       {/* Modal Detail Pesan */}

@@ -118,7 +118,6 @@ export default function AdminServices() {
               </div>
             )}
           </div>
-        )}
       </div>
 
       <ServiceForm 
