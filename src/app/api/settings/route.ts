@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import { join } from "path";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function POST(req: Request) {
   try {
@@ -21,24 +20,16 @@ export async function POST(req: Request) {
     let siteLogo = undefined;
     let siteIcon = undefined;
 
-    // Handle Landscape Logo
+    // Handle Landscape Logo ke Cloudinary
     if (logoFile && logoFile.size > 0) {
-      const bytes = await logoFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `logo-${Date.now()}-${logoFile.name.replace(/\s+/g, '-')}`;
-      const path = join(process.cwd(), "public/uploads", filename);
-      await writeFile(path, buffer);
-      siteLogo = `/uploads/${filename}`;
+      const uploadResult = await uploadToCloudinary(logoFile, "hexanusa/logo");
+      siteLogo = uploadResult.url;
     }
 
-    // Handle Square Icon
+    // Handle Square Icon ke Cloudinary
     if (iconFile && iconFile.size > 0) {
-      const bytes = await iconFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `icon-${Date.now()}-${iconFile.name.replace(/\s+/g, '-')}`;
-      const path = join(process.cwd(), "public/uploads", filename);
-      await writeFile(path, buffer);
-      siteIcon = `/uploads/${filename}`;
+      const uploadResult = await uploadToCloudinary(iconFile, "hexanusa/icon");
+      siteIcon = uploadResult.url;
     }
 
     await prisma.siteSettings.update({

@@ -1,5 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { ExternalLink, Plus } from "lucide-react";
+import Link from "next/link";
 
 export default async function Portfolio() {
   const projects = await prisma.portfolio.findMany({
@@ -47,9 +48,9 @@ export default async function Portfolio() {
                       <ExternalLink className="w-5 h-5" />
                     </a>
                   )}
-                  <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-blue-600 hover:border-blue-600 transition-all">
+                  <Link href={`/portfolio/${project.id}`} className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-white hover:bg-blue-600 hover:border-blue-600 transition-all">
                     <Plus className="w-5 h-5" />
-                  </div>
+                  </Link>
                 </div>
               </div>
             </div>

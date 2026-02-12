@@ -2,8 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { writeFile } from "fs/promises";
-import { join } from "path";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function getSettings() {
   const settings = await prisma.siteSettings.findUnique({ where: { id: 1 } });
@@ -16,14 +15,10 @@ export async function updateSettings(formData: FormData) {
     const file = formData.get("aboutImageFile") as File;
     let aboutImageUrl = formData.get("aboutImage") as string;
 
-    // 1. Upload Foto jika ada
+    // 1. Upload Foto jika ada ke Cloudinary
     if (file && file.size > 0) {
-      const bytes = await file.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `about-${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
-      const path = join(process.cwd(), "public/uploads", filename);
-      await writeFile(path, buffer);
-      aboutImageUrl = `/uploads/${filename}`;
+      const uploadResult = await uploadToCloudinary(file, "hexanusa/about");
+      aboutImageUrl = uploadResult.url;
     }
 
     // 2. Update SiteSettings

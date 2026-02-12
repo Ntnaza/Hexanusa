@@ -46,12 +46,12 @@ export default function Header() {
   };
 
   const navigation = [
-    { name: "Beranda", href: "#home" },
-    { name: "Layanan", href: "#services" },
-    { name: "Tentang", href: "#about" },
-    { name: "Portofolio", href: "#portfolio" },
-    { name: "Tim", href: "#team" },
-    { name: "Kontak", href: "#contact" },
+    { name: "Beranda", href: "/#home" },
+    { name: "Layanan", href: "/#services" },
+    { name: "Tentang", href: "/#about" },
+    { name: "Portofolio", href: "/#portfolio" },
+    { name: "Tim", href: "/#team" },
+    { name: "Kontak", href: "/#contact" },
   ];
 
   return (

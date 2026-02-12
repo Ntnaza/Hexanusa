@@ -2,8 +2,7 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { writeFile } from "fs/promises";
-import { join } from "path";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function saveTeamMember(formData: FormData) {
   const id = formData.get("id") ? Number(formData.get("id")) : undefined;
@@ -17,15 +16,10 @@ export async function saveTeamMember(formData: FormData) {
   
   let imageUrl = formData.get("image_url") as string;
 
-  // Jika ada file baru yang diupload
+  // Jika ada file baru yang diupload ke Cloudinary
   if (file && file.size > 0) {
-    const bytes = await file.arrayBuffer();
-    const buffer = Buffer.from(bytes);
-    
-    const filename = `${Date.now()}-${file.name.replace(/\s+/g, '-')}`;
-    const path = join(process.cwd(), "public/uploads", filename);
-    await writeFile(path, buffer);
-    imageUrl = `/uploads/${filename}`;
+    const uploadResult = await uploadToCloudinary(file, "hexanusa/team");
+    imageUrl = uploadResult.url;
   }
 
   const data = {

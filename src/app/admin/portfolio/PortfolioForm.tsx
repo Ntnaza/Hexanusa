@@ -23,6 +23,7 @@ export default function PortfolioForm({
   const [formData, setFormData] = useState({
     title: "",
     category: "Web Development",
+    description: "",
     link: ""
   });
 
@@ -31,6 +32,7 @@ export default function PortfolioForm({
       setFormData({
         title: initialData.title || "",
         category: initialData.category || "Web Development",
+        description: initialData.description || "",
         link: initialData.link || ""
       });
       setPreview(initialData.image || "");
@@ -38,6 +40,7 @@ export default function PortfolioForm({
       setFormData({
         title: "",
         category: "Web Development",
+        description: "",
         link: ""
       });
       setPreview("");
@@ -61,6 +64,7 @@ export default function PortfolioForm({
     if (initialData?.id) data.append("id", initialData.id.toString());
     data.append("title", formData.title);
     data.append("category", formData.category);
+    data.append("description", formData.description);
     data.append("link", formData.link);
     
     if (fileInputRef.current?.files?.[0]) {
@@ -152,6 +156,16 @@ export default function PortfolioForm({
                 <option value="Custom Software">Custom Software</option>
                 <option value="Digital Innovation">Digital Innovation</option>
               </select>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Deskripsi Lengkap</label>
+              <textarea 
+                value={formData.description}
+                onChange={(e) => setFormData({...formData, description: e.target.value})}
+                className="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-sm font-medium shadow-inner min-h-[150px] resize-none"
+                placeholder="Jelaskan kelebihan, fitur, dan cara penggunaan proyek ini secara mendalam..."
+              />
             </div>
 
             <div className="space-y-2">

@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
-import { writeFile } from "fs/promises";
-import path from "path";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function POST(req: Request) {
   try {
@@ -11,15 +10,11 @@ export async function POST(req: Request) {
     const features = JSON.parse(formData.get("features") as string);
     const imageFile = formData.get("aboutImageFile") as File;
 
-    let imagePath = undefined;
+    let imageUrl = undefined;
 
-    if (imageFile && typeof imageFile !== "string") {
-      const bytes = await imageFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `about-${Date.now()}-${imageFile.name.replace(/\s/g, "-")}`;
-      const uploadPath = path.join(process.cwd(), "public/uploads", filename);
-      await writeFile(uploadPath, buffer);
-      imagePath = `/uploads/${filename}`;
+    if (imageFile && typeof imageFile !== "string" && imageFile.size > 0) {
+      const uploadResult = await uploadToCloudinary(imageFile, "hexanusa/about");
+      imageUrl = uploadResult.url;
     }
 
     // 1. Update SiteSettings
@@ -28,7 +23,7 @@ export async function POST(req: Request) {
       data: {
         aboutTitle,
         aboutDesc,
-        ...(imagePath && { aboutImage: imagePath })
+        ...(imageUrl && { aboutImage: imageUrl })
       },
     });
 

@@ -2,27 +2,23 @@
 
 import { prisma } from "@/lib/prisma";
 import { revalidatePath } from "next/cache";
-import { writeFile } from "fs/promises";
-import { join } from "path";
+import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function savePortfolio(formData: FormData) {
   try {
     const id = formData.get("id") ? parseInt(formData.get("id") as string) : undefined;
     const title = formData.get("title") as string;
     const category = formData.get("category") as string;
+    const description = formData.get("description") as string;
     const link = formData.get("link") as string;
     const imageFile = formData.get("image_file") as File | null;
 
-    let imagePath = undefined;
+    let imageUrl = undefined;
 
-    // Proses upload jika ada file baru (Cek keberadaan file dengan aman)
+    // Proses upload jika ada file baru ke Cloudinary
     if (imageFile && typeof imageFile !== "string" && imageFile.size > 0) {
-      const bytes = await imageFile.arrayBuffer();
-      const buffer = Buffer.from(bytes);
-      const filename = `portfolio-${Date.now()}-${imageFile.name.replace(/\s+/g, '-')}`;
-      const path = join(process.cwd(), "public/uploads", filename);
-      await writeFile(path, buffer);
-      imagePath = `/uploads/${filename}`;
+      const uploadResult = await uploadToCloudinary(imageFile, "hexanusa/portfolio");
+      imageUrl = uploadResult.url;
     }
 
     if (id) {
@@ -31,18 +27,19 @@ export async function savePortfolio(formData: FormData) {
         data: {
           title,
           category,
+          description,
           link,
-          ...(imagePath && { image: imagePath })
+          ...(imageUrl && { image: imageUrl })
         }
       });
     } else {
-      if (!imagePath) throw new Error("Gambar wajib diunggah untuk proyek baru.");
+      if (!imageUrl) throw new Error("Gambar wajib diunggah untuk proyek baru.");
       await prisma.portfolio.create({
         data: {
           title,
           category,
-          link,
-          image: imagePath,
+          description,
+          image: imageUrl,
           order: 0
         }
       });

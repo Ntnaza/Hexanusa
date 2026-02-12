@@ -7,44 +7,15 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id        Int      @id @default(autoincrement())
-  username  String   @unique
-  password  String
-  createdAt DateTime @default(now())
+model aboutfeature {
+  id    Int    @id @default(autoincrement())
+  title String
+  desc  String
+  icon  String
+  order Int    @default(0)
 }
 
-model Service {
-  id        Int      @id @default(autoincrement())
-  title     String
-  desc      String   @db.Text
-  iconName  String   
-  color     String   @default("blue")
-  order     Int      @default(0)
-}
-
-model Portfolio {
-  id        Int      @id @default(autoincrement())
-  title     String
-  category  String
-  image     String   @db.Text
-  link      String?  @db.Text
-  order     Int      @default(0)
-}
-
-model TeamMember {
-  id        Int      @id @default(autoincrement())
-  name      String
-  role      String
-  image     String   @db.Text
-  bio       String   @db.Text
-  linkedin  String?
-  github    String?
-  instagram String?
-  order     Int      @default(0)
-}
-
-model ContactMessage {
+model contactmessage {
   id        Int      @id @default(autoincrement())
   name      String
   email     String
@@ -53,36 +24,66 @@ model ContactMessage {
   isRead    Boolean  @default(false)
 }
 
-model SiteSettings {
-  id            Int      @id @default(1)
-  companyName   String   @default("Hexanusa")
-  siteLogo      String?  @db.Text
-  siteIcon      String?  @db.Text
-  heroTitle     String   @db.Text
-  heroDesc      String   @db.Text
-  aboutTitle    String   @db.Text
-  aboutDesc     String   @db.Text
-  aboutImage    String   @db.Text
-  contactEmail  String
-  contactPhone  String
-  contactAddress String  @db.Text
-  contactMaps   String   @db.Text
-  socialIg      String?
-  socialLi      String?
-  socialGh      String?
-}
-
-model AboutFeature {
-  id    Int    @id @default(autoincrement())
-  title String
-  desc  String
-  icon  String
-  order Int    @default(0)
-}
-
-model HeroSlide {
+model heroslide {
   id    Int    @id @default(autoincrement())
   title String @db.Text
   desc  String @db.Text
   order Int    @default(0)
+}
+
+model portfolio {
+  id          Int     @id @default(autoincrement())
+  title       String
+  category    String
+  image       String  @db.Text
+  link        String? @db.Text
+  order       Int     @default(0)
+  description String? @db.Text
+}
+
+model service {
+  id       Int    @id @default(autoincrement())
+  title    String
+  desc     String @db.Text
+  iconName String
+  color    String @default("blue")
+  order    Int    @default(0)
+}
+
+model sitesettings {
+  id             Int     @id @default(1)
+  heroTitle      String  @db.Text
+  heroDesc       String  @db.Text
+  aboutTitle     String  @db.Text
+  aboutDesc      String  @db.Text
+  aboutImage     String  @db.Text
+  contactEmail   String
+  contactPhone   String
+  contactAddress String  @db.Text
+  contactMaps    String  @db.Text
+  socialIg       String?
+  socialLi       String?
+  socialGh       String?
+  companyName    String  @default("Hexanusa")
+  siteIcon       String? @db.Text
+  siteLogo       String? @db.Text
+}
+
+model teammember {
+  id        Int     @id @default(autoincrement())
+  name      String
+  role      String
+  image     String  @db.Text
+  bio       String  @db.Text
+  linkedin  String?
+  github    String?
+  order     Int     @default(0)
+  instagram String?
+}
+
+model user {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique(map: "User_username_key")
+  password  String
+  createdAt DateTime @default(now())
 }
