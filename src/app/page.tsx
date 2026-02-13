@@ -9,6 +9,8 @@ import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
 import { prisma } from "@/lib/prisma";
 
+export const dynamic = "force-dynamic";
+
 export default async function Home() {
   const heroSlides = await prisma.heroslide.findMany({
     orderBy: { order: "asc" },
