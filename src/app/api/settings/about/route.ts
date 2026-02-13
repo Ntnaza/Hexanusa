@@ -18,7 +18,7 @@ export async function POST(req: Request) {
     }
 
     // 1. Update SiteSettings
-    await prisma.siteSettings.update({
+    await prisma.sitesettings.update({
       where: { id: 1 },
       data: {
         aboutTitle,
@@ -28,8 +28,8 @@ export async function POST(req: Request) {
     });
 
     // 2. Sync Features
-    await prisma.aboutFeature.deleteMany({});
-    await prisma.aboutFeature.createMany({
+    await prisma.aboutfeature.deleteMany({});
+    await prisma.aboutfeature.createMany({
       data: features.map((f: any, idx: number) => ({
         title: f.title,
         desc: f.desc,

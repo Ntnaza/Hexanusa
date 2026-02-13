@@ -5,16 +5,16 @@ async function main() {
   console.log("Membersihkan data lama...");
   await prisma.service.deleteMany();
   await prisma.portfolio.deleteMany();
-  await prisma.teamMember.deleteMany();
-  await prisma.aboutFeature.deleteMany();
-  await prisma.siteSettings.deleteMany();
+  await prisma.teammember.deleteMany();
+  await prisma.aboutfeature.deleteMany();
+  await prisma.sitesettings.deleteMany();
   await prisma.user.deleteMany();
-  await prisma.heroSlide.deleteMany();
+  await prisma.heroslide.deleteMany();
 
   console.log("Mengisi data baru (Full Bahasa Indonesia)...");
 
   // 1. Data Hero Slides (Ini yang Baru!)
-  await prisma.heroSlide.createMany({
+  await prisma.heroslide.createMany({
     data: [
       { 
         title: "Membangun Masa Depan Digital Anda dengan Presisi Tinggi.", 
@@ -35,7 +35,7 @@ async function main() {
   });
 
   // 2. Pengaturan Umum (Site Settings)
-  await prisma.siteSettings.create({
+  await prisma.sitesettings.create({
     data: {
       id: 1,
       companyName: "Hexanusa Digital",
@@ -81,7 +81,7 @@ async function main() {
   });
 
   // 4. Tim Inti
-  await prisma.teamMember.createMany({
+  await prisma.teammember.createMany({
     data: [
       { name: "Koh Engkoh", role: "Pendiri & CTO", image: "https://i.pravatar.cc/300?u=koh", bio: "Visiuner di balik arsitektur teknologi Hexanusa dengan pengalaman lebih dari 10 tahun.", order: 1, linkedin: "#", github: "#", instagram: "#" },
       { name: "Sarah Alana", role: "Ketua Desainer UI/UX", image: "https://i.pravatar.cc/300?u=sarah", bio: "Spesialis dalam menciptakan pengalaman pengguna yang estetik, modern, dan fungsional.", order: 2, linkedin: "#", github: "#", instagram: "#" },
@@ -90,7 +90,7 @@ async function main() {
   });
 
   // 5. Fitur Keunggulan
-  await prisma.aboutFeature.createMany({
+  await prisma.aboutfeature.createMany({
     data: [
       { title: "Rekayasa Premium", desc: "Dikembangkan oleh tenaga ahli berpengalaman dengan standar pengkodean kelas dunia.", icon: "Code2", order: 1 },
       { title: "Teknologi Mutakhir", desc: "Menggunakan tumpukan teknologi terbaru seperti Next.js, Laravel, dan Cloud Native.", icon: "Zap", order: 2 },
