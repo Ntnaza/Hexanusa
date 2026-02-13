@@ -81,9 +81,18 @@ export default function TeamForm({
     }
 
     try {
-      await saveTeamMember(data);
-      toast(`Anggota tim berhasil ${initialData ? 'diperbarui' : 'ditambahkan'}!`, "success");
-      onClose();
+      const res = await fetch("/api/team", {
+        method: "POST",
+        body: data,
+      });
+      const result = await res.json();
+      
+      if (result.success) {
+        toast(`Anggota tim berhasil ${initialData ? 'diperbarui' : 'ditambahkan'}!`, "success");
+        onClose();
+      } else {
+        throw new Error(result.error || "Gagal menyimpan");
+      }
     } catch (error) {
       toast("Gagal menyimpan data tim.", "error");
     } finally {

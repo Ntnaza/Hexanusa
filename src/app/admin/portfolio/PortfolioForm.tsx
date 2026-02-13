@@ -76,7 +76,12 @@ export default function PortfolioForm({
     }
 
     try {
-      const result = await savePortfolio(data);
+      const res = await fetch("/api/portfolio", {
+        method: "POST",
+        body: data,
+      });
+      const result = await res.json();
+
       if (result.success) {
         toast(`Karya berhasil ${initialData ? 'diperbarui' : 'ditambahkan'}!`, "success");
         onClose();

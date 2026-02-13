@@ -58,9 +58,19 @@ export default function ServiceForm({
     e.preventDefault();
     setLoading(true);
     try {
-      await saveService(formData);
-      toast(`Layanan berhasil ${initialData ? 'diperbarui' : 'ditambahkan'}!`, "success");
-      onClose();
+      const res = await fetch("/api/services", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+      const result = await res.json();
+      
+      if (result.success) {
+        toast(`Layanan berhasil ${initialData ? 'diperbarui' : 'ditambahkan'}!`, "success");
+        onClose();
+      } else {
+        throw new Error(result.error);
+      }
     } catch (error) {
       toast("Gagal menyimpan data layanan.", "error");
     } finally {

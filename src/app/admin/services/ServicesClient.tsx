@@ -23,8 +23,15 @@ export default function ServicesClient({ initialData }: { initialData: any[] }) 
 
   const handleDelete = async (id: number) => {
     if (confirm("Hapus layanan ini?")) {
-      await deleteService(id);
-      setServices(services.filter(s => s.id !== id));
+      try {
+        const res = await fetch(`/api/services?id=${id}`, { method: "DELETE" });
+        const result = await res.json();
+        if (result.success) {
+          setServices(services.filter(s => s.id !== id));
+        }
+      } catch (error) {
+        console.error("Gagal menghapus:", error);
+      }
     }
   };
 
