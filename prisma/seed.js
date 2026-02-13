@@ -99,12 +99,20 @@ async function main() {
     ]
   });
 
-  // 6. User Admin
-  await prisma.user.create({
-    data: { username: "admin", password: "admin123" }
+  // 6. User Admin (PENTING: Gunakan Hash untuk Bcrypt)
+  const bcrypt = require("bcryptjs");
+  const hashedPassword = await bcrypt.hash("admin123", 10);
+  
+  await prisma.user.upsert({
+    where: { username: "admin" },
+    update: {},
+    create: { 
+      username: "admin", 
+      password: hashedPassword 
+    }
   });
 
-  console.log("Seeding selesai! Semua data kini dalam Bahasa Indonesia yang konsisten.");
+  console.log("Seeding selesai! User admin: admin / admin123");
 }
 
 main().finally(async () => await prisma.$disconnect());
