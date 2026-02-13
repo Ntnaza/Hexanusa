@@ -5,7 +5,7 @@ import { revalidatePath } from "next/cache";
 
 export async function sendContactMessage(data: { name: string, email: string, message: string }) {
   try {
-    await prisma.contactMessage.create({
+    await prisma.contactmessage.create({
       data: {
         name: data.name,
         email: data.email,

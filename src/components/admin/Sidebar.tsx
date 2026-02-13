@@ -18,10 +18,13 @@ import {
   ChevronLeft,
   ChevronRight,
   Info,
-  Globe
+  Globe,
+  ShieldCheck,
+  User
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { useTransition } from "@/app/admin/layout";
+import { logoutAction } from "@/app/actions/auth";
 
 const menuItems = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
@@ -32,20 +35,32 @@ const menuItems = [
   { name: "Tim Kami", href: "/admin/team", icon: Users },
   { name: "Pesan Masuk", href: "/admin/messages", icon: MessageSquare },
   { name: "Pengaturan Umum", href: "/admin/settings", icon: Globe },
+  { name: "Log Aktivitas", href: "/admin/logs", icon: ShieldCheck },
 ];
 
 export default function Sidebar() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = useState(false);
   const [isCollapsed, setIsCollapsed] = useState(false);
+  const [siteIcon, setSiteIcon] = useState<string | null>(null);
   const { targetPath, setTargetPath } = useTransition();
 
   useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
 
-  const handleLogout = () => {
-    document.cookie = "admin_session=; path=/; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  useEffect(() => {
+    // Ambil icon dari database
+    fetch('/api/settings')
+      .then(res => res.json())
+      .then(data => {
+        if (data && data.siteIcon) setSiteIcon(data.siteIcon);
+      })
+      .catch(() => {});
+  }, []);
+
+  const handleLogout = async () => {
+    await logoutAction();
     window.location.href = "/admin/login";
   };
 
@@ -97,8 +112,14 @@ export default function Sidebar() {
         {/* Brand Section */}
         <div className="h-20 flex items-center shrink-0 overflow-hidden relative z-10">
           <div style={{ width: iconLaneWidth }} className="flex justify-center shrink-0">
-            <div className="bg-gradient-to-br from-blue-500 to-indigo-600 w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-lg">
-              <Cpu className="w-5 h-5" />
+            <div className="w-11 h-11 flex items-center justify-center overflow-hidden">
+              {siteIcon ? (
+                <img src={siteIcon} alt="Icon" className="w-full h-full object-contain" />
+              ) : (
+                <div className="bg-gradient-to-br from-blue-500 to-indigo-600 w-11 h-11 rounded-xl flex items-center justify-center text-white shadow-lg">
+                  <Cpu className="w-5 h-5" />
+                </div>
+              )}
             </div>
           </div>
           <motion.div 
@@ -173,10 +194,10 @@ export default function Sidebar() {
 
         {/* User & Footer Section */}
         <div className="shrink-0 border-t border-white/5 bg-black/20 overflow-hidden py-4 relative z-10">
-          <div className="h-12 flex items-center mb-2">
+          <Link href="/admin/profile" onClick={() => setTargetPath("/admin/profile")} className="h-12 flex items-center mb-2 hover:bg-white/5 transition-colors group/user">
              <div style={{ width: iconLaneWidth }} className="flex justify-center shrink-0">
-                <div className="w-8 h-8 rounded-lg overflow-hidden bg-slate-800 border border-white/10 shrink-0">
-                  <img src="https://i.pravatar.cc/100?u=admin" alt="avatar" className="w-full h-full object-cover opacity-80" />
+                <div className="w-8 h-8 rounded-lg overflow-hidden bg-slate-800 border border-white/10 shrink-0 group-hover/user:border-blue-500 transition-colors flex items-center justify-center text-slate-500 group-hover/user:text-blue-500">
+                  <User className="w-4 h-4" />
                 </div>
              </div>
              <AnimatePresence>
@@ -187,12 +208,12 @@ export default function Sidebar() {
                     exit={{ opacity: 0, x: -10 }}
                     className="ml-3 min-w-0 whitespace-nowrap"
                  >
-                    <p className="text-[10px] font-black text-white truncate">Koh Engkoh</p>
-                    <p className="text-[8px] font-bold text-slate-500 uppercase">Administrator</p>
+                    <p className="text-[10px] font-black text-white truncate group-hover/user:text-blue-400 transition-colors">Administrator</p>
+                    <p className="text-[8px] font-bold text-slate-500 uppercase">Manage Profile</p>
                  </motion.div>
                )}
              </AnimatePresence>
-          </div>
+          </Link>
           
           <button 
             onClick={handleLogout}

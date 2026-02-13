@@ -17,8 +17,8 @@ export default async function AdminDashboard() {
   const stats = [
     { name: "Services", count: await prisma.service.count(), icon: Briefcase, color: "blue", trend: "+2" },
     { name: "Portfolio", count: await prisma.portfolio.count(), icon: ImageIcon, color: "violet", trend: "+1" },
-    { name: "Team", count: await prisma.teamMember.count(), icon: Users, color: "emerald", trend: "0" },
-    { name: "Messages", count: await prisma.contactMessage.count(), icon: MessageSquare, color: "amber", trend: "+5" },
+    { name: "Team", count: await prisma.teammember.count(), icon: Users, color: "emerald", trend: "0" },
+    { name: "Messages", count: await prisma.contactmessage.count(), icon: MessageSquare, color: "amber", trend: "+5" },
   ];
 
   return (

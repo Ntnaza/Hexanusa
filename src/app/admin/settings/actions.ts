@@ -5,8 +5,8 @@ import { revalidatePath } from "next/cache";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 
 export async function getSettings() {
-  const settings = await prisma.siteSettings.findUnique({ where: { id: 1 } });
-  const features = await prisma.aboutFeature.findMany({ orderBy: { order: "asc" } });
+  const settings = await prisma.sitesettings.findUnique({ where: { id: 1 } });
+  const features = await prisma.aboutfeature.findMany({ orderBy: { order: "asc" } });
   return { ...settings, features };
 }
 
@@ -22,7 +22,7 @@ export async function updateSettings(formData: FormData) {
     }
 
     // 2. Update SiteSettings
-    await prisma.siteSettings.update({
+    await prisma.sitesettings.update({
       where: { id: 1 },
       data: {
         heroTitle: formData.get("heroTitle") as string,
@@ -44,7 +44,7 @@ export async function updateSettings(formData: FormData) {
     const features = JSON.parse(formData.get("features") as string);
     for (const f of features) {
       if (f.id) {
-        await prisma.aboutFeature.update({
+        await prisma.aboutfeature.update({
           where: { id: Number(f.id) },
           data: { title: f.title, desc: f.desc, icon: f.icon }
         });

@@ -7,11 +7,16 @@ import Testimonials from "@/components/Testimonials";
 import Team from "@/components/Team";
 import CTA from "@/components/CTA";
 import Contact from "@/components/Contact";
+import { prisma } from "@/lib/prisma";
 
-export default function Home() {
+export default async function Home() {
+  const heroSlides = await prisma.heroslide.findMany({
+    orderBy: { order: "asc" },
+  });
+
   return (
     <main>
-      <Hero />
+      <Hero initialSlides={heroSlides} />
       <Services />
       <Process />
       <About />

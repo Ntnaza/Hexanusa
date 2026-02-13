@@ -3,8 +3,8 @@ import * as LucideIcons from "lucide-react";
 
 export default async function About() {
   // 1. Ambil data dari database
-  const settings = await prisma.siteSettings.findUnique({ where: { id: 1 } });
-  const features = await prisma.aboutFeature.findMany({ orderBy: { order: "asc" } });
+  const settings = await prisma.sitesettings.findUnique({ where: { id: 1 } });
+  const features = await prisma.aboutfeature.findMany({ orderBy: { order: "asc" } });
 
   if (!settings) return null;
 

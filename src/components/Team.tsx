@@ -2,14 +2,14 @@ import { prisma } from "@/lib/prisma";
 import { Linkedin, Github, Instagram } from "lucide-react";
 
 export default async function Team() {
-  const members = await prisma.teamMember.findMany({
+  const members = await prisma.teammember.findMany({
     orderBy: { order: "asc" }
   });
 
   return (
     <section id="team" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6 animate-in fade-in slide-in-from-bottom-8 duration-700">
           <div className="max-w-xl">
             <h2 className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-4">Tim Kami</h2>
             <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
@@ -22,8 +22,12 @@ export default async function Team() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
-          {members.map((member) => (
-            <div key={member.id} className="group">
+          {members.map((member, index) => (
+            <div 
+              key={member.id} 
+              style={{ animationDelay: `${index * 200}ms` }}
+              className="group animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
+            >
               <div className="relative overflow-hidden rounded-[40px] aspect-square mb-6 border-4 border-slate-50 shadow-sm">
                 <img 
                   src={member.image} 

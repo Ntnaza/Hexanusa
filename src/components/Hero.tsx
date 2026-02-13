@@ -4,19 +4,12 @@ import { useState, useEffect } from "react";
 import { ChevronDown, Code2, Database, Globe2, Smartphone, Cpu, Cloud, Terminal, ShieldCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
-export default function Hero() {
-  const [slides, setSlides] = useState<any[]>([]);
+export default function Hero({ initialSlides }: { initialSlides: any[] }) {
+  const [slides, setSlides] = useState<any[]>(initialSlides);
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    // 1. Ambil data dari database
-    fetch('/api/hero')
-      .then(res => res.json())
-      .then(data => setSlides(data));
-  }, []);
-
-  useEffect(() => {
-    // 2. Logika berputar otomatis setiap 6 detik
+    // Logika berputar otomatis setiap 6 detik
     if (slides.length > 1) {
       const timer = setInterval(() => {
         setCurrentIndex((prev) => (prev + 1) % slides.length);
@@ -25,7 +18,7 @@ export default function Hero() {
     }
   }, [slides]);
 
-  if (slides.length === 0) return null;
+  if (!slides || slides.length === 0) return null;
 
   return (
     <section id="home" className="relative pt-40 pb-20 overflow-hidden flex flex-col items-center justify-center min-h-screen">

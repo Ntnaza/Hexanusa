@@ -2,8 +2,8 @@ import { prisma } from "@/lib/prisma";
 import AboutClient from "./AboutClient";
 
 export default async function AdminAbout() {
-  const settings = await prisma.siteSettings.findUnique({ where: { id: 1 } });
-  const features = await prisma.aboutFeature.findMany({ orderBy: { order: "asc" } });
+  const settings = await prisma.sitesettings.findUnique({ where: { id: 1 } });
+  const features = await prisma.aboutfeature.findMany({ orderBy: { order: "asc" } });
 
   if (!settings) return <div className="p-10 text-center">Data belum siap.</div>;
 

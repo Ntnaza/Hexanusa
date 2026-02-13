@@ -32,18 +32,34 @@ export async function saveTeamMember(formData: FormData) {
     instagram,
   };
 
-  if (id) {
-    await prisma.teamMember.update({ where: { id }, data });
-  } else {
-    await prisma.teamMember.create({ data: { ...data, order: 0 } });
-  }
-  
-  revalidatePath("/");
-  revalidatePath("/admin/team");
-}
+    if (id) {
 
-export async function deleteTeamMember(id: number) {
-  await prisma.teamMember.delete({ where: { id } });
-  revalidatePath("/");
-  revalidatePath("/admin/team");
-}
+      await prisma.teammember.update({ where: { id }, data });
+
+    } else {
+
+      await prisma.teammember.create({ data: { ...data, order: 0 } });
+
+    }
+
+    
+
+    revalidatePath("/");
+
+    revalidatePath("/admin/team");
+
+  }
+
+  
+
+  export async function deleteTeamMember(id: number) {
+
+    await prisma.teammember.delete({ where: { id } });
+
+    revalidatePath("/");
+
+    revalidatePath("/admin/team");
+
+  }
+
+  

@@ -3,12 +3,12 @@ import SettingsClient from "./SettingsClient";
 
 export default async function AdminSettings() {
   // 1. Ambil Pengaturan Utama
-  const settings = await prisma.siteSettings.findUnique({
+  const settings = await prisma.sitesettings.findUnique({
     where: { id: 1 },
   });
 
   // 2. Ambil 4 Poin Keunggulan (Ini yang tadi ketinggalan!)
-  const features = await prisma.aboutFeature.findMany({
+  const features = await prisma.aboutfeature.findMany({
     orderBy: { order: "asc" },
   });
 

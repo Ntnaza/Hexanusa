@@ -9,9 +9,9 @@ export default async function Services() {
   });
 
   return (
-    <section id="services" className="py-24 bg-white">
+    <section id="services" className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-xl mb-16">
+        <div className="max-w-xl mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
           <h2 className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-4">Layanan</h2>
           <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
             Solusi Digital yang <span className="text-blue-600">Tepat Sasaran.</span>
@@ -23,14 +23,15 @@ export default async function Services() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {services.map((service) => {
+          {services.map((service, index) => {
             // Logika ambil ikon berdasarkan nama di database
             const IconComponent = (LucideIcons as any)[service.iconName] || LucideIcons.HelpCircle;
             
             return (
               <div 
                 key={service.id}
-                className="group p-8 rounded-3xl bg-slate-50/50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-300"
+                style={{ animationDelay: `${index * 100}ms` }}
+                className="group p-8 rounded-3xl bg-slate-50/50 border border-slate-100 hover:bg-white hover:shadow-2xl hover:shadow-blue-100/50 transition-all duration-300 animate-in fade-in zoom-in-95 duration-700 fill-mode-both"
               >
                 <div className={`w-14 h-14 rounded-2xl flex items-center justify-center mb-6 transition-transform group-hover:scale-110 ${
                   service.color === "blue" ? "bg-blue-600 text-white shadow-lg shadow-blue-200" : "bg-indigo-600 text-white shadow-lg shadow-indigo-200"

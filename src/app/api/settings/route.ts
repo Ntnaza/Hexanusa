@@ -2,6 +2,11 @@ import { prisma } from "@/lib/prisma";
 import { NextResponse } from "next/server";
 import { uploadToCloudinary } from "@/lib/cloudinary";
 
+export async function GET() {
+  const settings = await prisma.sitesettings.findUnique({ where: { id: 1 } });
+  return NextResponse.json(settings);
+}
+
 export async function POST(req: Request) {
   try {
     const formData = await req.formData();
@@ -32,7 +37,7 @@ export async function POST(req: Request) {
       siteIcon = uploadResult.url;
     }
 
-    await prisma.siteSettings.update({
+    await prisma.sitesettings.update({
       where: { id: 1 },
       data: {
         companyName,

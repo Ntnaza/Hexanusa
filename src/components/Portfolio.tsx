@@ -11,7 +11,7 @@ export default async function Portfolio() {
     <section id="portfolio" className="py-24 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div className="max-w-xl mb-16">
+        <div className="max-w-xl mb-16 animate-in fade-in slide-in-from-bottom-8 duration-700">
           <h2 className="text-blue-600 font-bold uppercase tracking-widest text-xs mb-4">Portofolio</h2>
           <h3 className="text-3xl md:text-4xl font-black text-slate-900 leading-tight">
             Karya Terbaik Kami Untuk <span className="text-blue-600">Anda.</span>
@@ -23,10 +23,11 @@ export default async function Portfolio() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project) => (
+          {projects.map((project, index) => (
             <div 
               key={project.id} 
-              className="group relative overflow-hidden rounded-[32px] aspect-[4/3] cursor-pointer shadow-xl shadow-slate-100"
+              style={{ animationDelay: `${index * 150}ms` }}
+              className="group relative overflow-hidden rounded-[32px] aspect-[4/3] cursor-pointer shadow-xl shadow-slate-100 animate-in fade-in zoom-in-95 duration-700 fill-mode-both"
             >
               <img 
                 src={project.image} 
