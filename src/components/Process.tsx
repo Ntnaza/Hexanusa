@@ -1,22 +1,38 @@
 "use client";
 
 import { MessageSquare, PencilRuler, Code2, Rocket } from "lucide-react";
-import { motion, useScroll, useTransform, useSpring } from "framer-motion";
-import { useRef } from "react";
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent } from "framer-motion";
+import { useRef, useState, useEffect } from "react";
 
 export default function Process() {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [isNavigating, setIsNavigating] = useState(false);
   
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
   });
 
-  const smoothProgress = useSpring(scrollYProgress, {
+  // Pantau status navigasi global
+  useEffect(() => {
+    const checkNav = setInterval(() => {
+      if (typeof window !== "undefined") {
+        setIsNavigating(!!window.isNavigating);
+      }
+    }, 100);
+    return () => clearInterval(checkNav);
+  }, []);
+
+  const springConfig = {
     stiffness: 40,
     damping: 20,
     restDelta: 0.0001
-  });
+  };
+
+  const springProgress = useSpring(scrollYProgress, springConfig);
+  
+  // Gunakan scrollYProgress langsung jika sedang navigasi agar tidak tertinggal oleh spring
+  const smoothProgress = isNavigating ? scrollYProgress : springProgress;
 
   const p = useTransform(smoothProgress, [0.1, 0.9], [0, 1]);
   const pathLength = useTransform(p, [0, 1], [0, 1]);
@@ -47,7 +63,7 @@ export default function Process() {
   return (
     <section ref={containerRef} className="relative h-[300vh] md:h-[400vh] bg-white">
       
-      <div className="sticky top-0 h-screen w-full flex items-center overflow-hidden">
+      <div className={`${isNavigating ? "relative" : "sticky top-0"} h-screen w-full flex items-center overflow-hidden transition-all duration-300`}>
         
         {/* Background Decorative */}
         <div className="absolute inset-0 pointer-events-none">

@@ -28,13 +28,16 @@ export default async function Team() {
               style={{ animationDelay: `${index * 200}ms` }}
               className="group animate-in fade-in slide-in-from-bottom-8 duration-700 fill-mode-both"
             >
-              <div className="relative overflow-hidden rounded-[40px] aspect-square mb-6 border-4 border-slate-50 shadow-sm">
+              <div 
+                className="relative overflow-hidden rounded-[40px] aspect-square mb-6 border-4 border-slate-50 shadow-sm isolate"
+                style={{ WebkitMaskImage: "-webkit-radial-gradient(white, black)" }}
+              >
                 <img 
                   src={member.image} 
                   alt={member.name} 
-                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110"
+                  className="w-full h-full object-cover transition-all duration-700 group-hover:scale-110 rounded-[36px]"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8">
+                <div className="absolute inset-0 bg-gradient-to-t from-blue-600/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end p-8 z-10 rounded-[36px]">
                   <div className="flex gap-4">
                     {member.linkedin && (
                       <a href={member.linkedin} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-xl bg-white/20 backdrop-blur-md flex items-center justify-center text-white hover:bg-white hover:text-blue-600 transition-all">

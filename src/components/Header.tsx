@@ -6,6 +6,14 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { usePathname } from "next/navigation";
 
+// Tambahkan definisi tipe untuk window.lenis
+declare global {
+  interface Window {
+    lenis: any;
+    isNavigating: boolean;
+  }
+}
+
 export default function Header() {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
@@ -34,15 +42,37 @@ export default function Header() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY, isManualNavigating, isMobileMenuOpen]);
 
-  const handleNavClick = () => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     setIsMobileMenuOpen(false);
     setIsManualNavigating(true);
+    window.isNavigating = true;
     setIsCollapsed(false);
+
+    // Cek jika link adalah anchor di halaman yang sama
+    if (href.startsWith("/#") && pathname === "/") {
+      const targetId = href.split("#")[1];
+      if (window.lenis) {
+        e.preventDefault();
+        window.lenis.scrollTo(`#${targetId}`, {
+          duration: 2, // Sedikit lebih lambat agar lebih elegan
+          easing: (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+          onComplete: () => {
+            setTimeout(() => {
+              window.isNavigating = false;
+            }, 100);
+          }
+        });
+        // Update URL secara manual tanpa trigger scroll browser
+        window.history.pushState(null, "", href);
+      }
+    }
+
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
     timeoutRef.current = setTimeout(() => {
       setIsManualNavigating(false);
+      window.isNavigating = false;
       lastScrollY.current = window.scrollY;
-    }, 1200);
+    }, 2200); // Harus lebih lama dari durasi scrollTo
   };
 
   const navigation = [
@@ -80,7 +110,13 @@ export default function Header() {
 
             {/* Logo */}
             <motion.div layout className="flex-shrink-0 flex items-center justify-center">
-              <Link href="/" onClick={() => { window.scrollTo({top:0, behavior:'smooth'}); setIsCollapsed(false); }}>
+              <Link href="/" onClick={(e) => { 
+                if (pathname === "/" && window.lenis) {
+                  e.preventDefault();
+                  window.lenis.scrollTo(0);
+                }
+                setIsCollapsed(false); 
+              }}>
                 <img 
                   src="/logo/hexa.png" 
                   alt="Hexanusa" 
@@ -108,7 +144,7 @@ export default function Header() {
                       <Link
                         key={item.name}
                         href={item.href}
-                        onClick={handleNavClick}
+                        onClick={(e) => handleNavClick(e, item.href)}
                         className="text-[14px] font-bold text-slate-600 hover:text-blue-600 transition-colors whitespace-nowrap"
                       >
                         {item.name}
@@ -157,7 +193,7 @@ export default function Header() {
                 <Link
                   key={item.name}
                   href={item.href}
-                  onClick={handleNavClick}
+                  onClick={(e) => handleNavClick(e, item.href)}
                   className="text-2xl font-black text-slate-900 hover:text-blue-600 transition-colors"
                 >
                   {item.name}

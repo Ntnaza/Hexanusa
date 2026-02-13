@@ -51,14 +51,14 @@ export default function Hero({ initialSlides }: { initialSlides: any[] }) {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
             >
-              <h1 className="text-4xl md:text-7xl font-black text-slate-900 tracking-tight leading-[1.1] mb-8">
+              <h1 className="text-3xl md:text-6xl font-black text-slate-900 tracking-tight leading-[1.1] mb-6">
                 {slides[currentIndex].title.split(" ").map((word: string, i: number) => (
                   word.toLowerCase() === "digital" || word.toLowerCase() === "teknologi" ? 
                   <span key={i} className="text-blue-600"> {word} </span> : ` ${word} `
                 ))}
               </h1>
               
-              <p className="text-lg md:text-2xl text-slate-500 mb-16 leading-relaxed font-medium max-w-3xl mx-auto">
+              <p className="text-base md:text-xl text-slate-500 mb-10 leading-relaxed font-medium max-w-2xl mx-auto">
                 {slides[currentIndex].desc}
               </p>
             </motion.div>
@@ -66,19 +66,19 @@ export default function Hero({ initialSlides }: { initialSlides: any[] }) {
         </div>
 
         {/* Logos Section */}
-        <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 opacity-80 hover:opacity-100 transition-opacity duration-300">
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" className="h-8 w-auto hover:scale-110 transition-transform" />
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" className="h-8 w-auto hover:scale-110 transition-transform" />
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="h-8 w-auto hover:scale-110 transition-transform" />
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" className="h-7 w-auto hover:scale-110 transition-transform" />
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" className="h-7 w-auto hover:scale-110 transition-transform" />
-          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" className="h-8 w-auto hover:scale-110 transition-transform" />
+        <div className="flex flex-wrap justify-center items-center gap-6 md:gap-10 opacity-60 hover:opacity-100 transition-opacity duration-300 mb-20">
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nextjs/nextjs-original.svg" alt="Next.js" className="h-6 md:h-7 w-auto hover:scale-110 transition-transform" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/laravel/laravel-original.svg" alt="Laravel" className="h-6 md:h-7 w-auto hover:scale-110 transition-transform" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" alt="React" className="h-6 md:h-7 w-auto hover:scale-110 transition-transform" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/typescript/typescript-original.svg" alt="TypeScript" className="h-5 md:h-6 w-auto hover:scale-110 transition-transform" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-original.svg" alt="Tailwind CSS" className="h-5 md:h-6 w-auto hover:scale-110 transition-transform" />
+          <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js" className="h-6 md:h-7 w-auto hover:scale-110 transition-transform" />
         </div>
       </div>
 
-      <div className="pb-10 animate-bounce flex flex-col items-center gap-2 text-slate-400">
-        <span className="text-[10px] font-bold uppercase tracking-[0.3em]">Scroll Down</span>
-        <ChevronDown className="w-5 h-5" />
+      <div className="absolute bottom-8 left-0 w-full animate-bounce flex flex-col items-center gap-2 text-slate-400 pointer-events-none">
+        <span className="text-[9px] font-bold uppercase tracking-[0.3em]">Scroll Down</span>
+        <ChevronDown className="w-4 h-4" />
       </div>
     </section>
   );

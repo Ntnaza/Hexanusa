@@ -4,6 +4,13 @@ import { useEffect } from "react";
 import Lenis from "lenis";
 import { usePathname } from "next/navigation";
 
+// Tambahkan definisi tipe untuk window.lenis
+declare global {
+  interface Window {
+    lenis: Lenis | null;
+  }
+}
+
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const isAdmin = pathname?.startsWith("/admin");
@@ -23,6 +30,9 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
       infinite: false,
     });
 
+    // Simpan di window
+    window.lenis = lenis;
+
     function raf(time: number) {
       lenis.raf(time);
       requestAnimationFrame(raf);
@@ -32,6 +42,7 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
     return () => {
       lenis.destroy();
+      window.lenis = null;
     };
   }, [isAdmin]);
 
