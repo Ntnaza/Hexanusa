@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 // Tambahkan definisi tipe untuk window.lenis
 declare global {
   interface Window {
-    lenis: Lenis | null;
+    lenis: any;
   }
 }
 
