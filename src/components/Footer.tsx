@@ -1,10 +1,10 @@
 "use client";
 
-import { Cpu, Mail, Phone, MapPin, Github, Twitter, Linkedin } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export default function Footer() {
+export default function Footer({ initialSettings, initialServices }: { initialSettings: any, initialServices: any[] }) {
   const pathname = usePathname();
 
   // Jangan tampilkan di halaman admin
@@ -17,27 +17,31 @@ export default function Footer() {
         <div className="border-t border-white/5 pt-20">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-16 mb-20">
             <div className="col-span-1 md:col-span-1">
-              <Link href="/" className="flex items-center gap-2 mb-8 group">
-                <div className="bg-blue-600 p-2 rounded-xl text-white">
-                  <Cpu className="w-6 h-6" />
-                </div>
-                <span className="text-2xl font-black text-white tracking-tighter">
-                  HEXA<span className="text-blue-600">NUSA</span>
+              <Link href="/" className="flex items-center gap-4 mb-8 group">
+                <img 
+                  src={initialSettings?.siteIcon || "/logo/hexa.png"} 
+                  alt={initialSettings?.companyName || "Hexanusa"} 
+                  className="h-10 w-10 object-contain" 
+                />
+                <span className="text-xl font-black text-white tracking-tighter uppercase">
+                  {initialSettings?.companyName || "HEXANUSA"}
                 </span>
               </Link>
               <p className="text-sm leading-relaxed text-slate-500 font-medium">
-                Membangun masa depan digital melalui solusi perangkat lunak yang inovatif, 
-                efisien, dan berorientasi pada hasil nyata.
+                {initialSettings?.heroDesc?.substring(0, 120)}...
               </p>
             </div>
 
             <div>
               <h4 className="text-white font-bold mb-8 uppercase tracking-widest text-[10px]">Layanan</h4>
               <ul className="space-y-4 text-sm font-semibold">
-                <li><Link href="#services" className="hover:text-blue-500 transition-colors">Web Development</Link></li>
-                <li><Link href="#services" className="hover:text-blue-600 transition-colors">Mobile Apps</Link></li>
-                <li><Link href="#services" className="hover:text-blue-600 transition-colors">Enterprise Software</Link></li>
-                <li><Link href="#services" className="hover:text-blue-600 transition-colors">Cloud Solution</Link></li>
+                {initialServices?.map((service) => (
+                  <li key={service.id}>
+                    <Link href="#services" className="hover:text-blue-500 transition-colors">
+                      {service.title}
+                    </Link>
+                  </li>
+                ))}
               </ul>
             </div>
 
@@ -54,13 +58,17 @@ export default function Footer() {
             <div>
               <h4 className="text-white font-bold mb-8 uppercase tracking-widest text-[10px]">Kontak</h4>
               <ul className="space-y-4 text-sm font-semibold">
-                <li className="flex items-center gap-3">
-                  <MapPin className="w-5 h-5 text-blue-600" />
-                  <span>Jakarta, Indonesia</span>
+                <li className="flex items-start gap-3">
+                  <MapPin className="w-5 h-5 text-blue-600 shrink-0 mt-0.5" />
+                  <span className="text-xs leading-relaxed">{initialSettings?.contactAddress}</span>
                 </li>
                 <li className="flex items-center gap-3 text-white">
                   <Mail className="w-5 h-5 text-blue-600" />
-                  <span>hello@hexanusa.com</span>
+                  <span className="text-xs">{initialSettings?.contactEmail}</span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <Phone className="w-5 h-5 text-blue-600" />
+                  <span className="text-xs">{initialSettings?.contactPhone}</span>
                 </li>
               </ul>
             </div>
@@ -68,12 +76,24 @@ export default function Footer() {
           
           <div className="flex flex-col md:flex-row justify-between items-center gap-8 border-t border-white/5 pt-12">
             <p className="text-[10px] text-slate-600 font-bold uppercase tracking-[0.3em]">
-              &copy; {new Date().getFullYear()} Hexanusa Technology. All rights reserved.
+              &copy; {new Date().getFullYear()} {initialSettings?.companyName || "Hexanusa Technology"}. All rights reserved.
             </p>
             <div className="flex gap-8">
-              <Link href="#" className="text-slate-600 hover:text-white transition-colors"><Twitter className="w-5 h-5" /></Link>
-              <Link href="#" className="text-slate-600 hover:text-white transition-colors"><Linkedin className="w-5 h-5" /></Link>
-              <Link href="#" className="text-slate-600 hover:text-white transition-colors"><Github className="w-5 h-5" /></Link>
+              {initialSettings?.socialIg && (
+                <a href={initialSettings.socialIg} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-white transition-colors">
+                  <Instagram className="w-5 h-5" />
+                </a>
+              )}
+              {initialSettings?.socialLi && (
+                <a href={initialSettings.socialLi} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-white transition-colors">
+                  <Linkedin className="w-5 h-5" />
+                </a>
+              )}
+              {initialSettings?.socialGh && (
+                <a href={initialSettings.socialGh} target="_blank" rel="noopener noreferrer" className="text-slate-600 hover:text-white transition-colors">
+                  <Github className="w-5 h-5" />
+                </a>
+              )}
             </div>
           </div>
         </div>

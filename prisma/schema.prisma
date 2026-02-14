@@ -98,3 +98,20 @@ model user {
   lockUntil     DateTime?
   createdAt     DateTime  @default(now())
 }
+
+model visitor {
+  id        Int      @id @default(autoincrement())
+  ip        String
+  userAgent String?
+  createdAt DateTime @default(now())
+}
+
+model testimonial {
+  id        Int      @id @default(autoincrement())
+  name      String
+  role      String
+  content   String   @db.Text
+  image     String   @db.Text
+  order     Int      @default(0)
+  createdAt DateTime @default(now())
+}

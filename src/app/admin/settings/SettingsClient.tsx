@@ -191,14 +191,28 @@ export default function SettingsClient({ initialData }: { initialData: any }) {
           <h2 className="font-black text-slate-900 uppercase tracking-widest text-xs">Lokasi & Maps</h2>
         </div>
         <div className="space-y-4">
-          <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Google Maps Embed Link (URL Src)</label>
+          <div className="flex justify-between items-end">
+            <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Google Maps Embed Link (URL Src)</label>
+            <span className="text-[9px] font-bold text-blue-500 bg-blue-50 px-2 py-1 rounded-md">Otomatis Ekstrak Link</span>
+          </div>
           <input 
             type="text"
             value={formData.contactMaps}
-            onChange={(e) => setFormData({...formData, contactMaps: e.target.value})}
+            onChange={(e) => {
+              let val = e.target.value;
+              // Jika user paste seluruh iframe, ambil src nya saja
+              if (val.includes('<iframe')) {
+                const match = val.match(/src="([^"]+)"/);
+                if (match && match[1]) val = match[1];
+              }
+              setFormData({...formData, contactMaps: val});
+            }}
             className="w-full bg-slate-900 text-blue-300 font-mono text-[10px] p-5 rounded-2xl outline-none focus:ring-4 focus:ring-blue-500/10 transition-all"
             placeholder="https://google.com/maps/embed/..."
           />
+          <p className="text-[9px] text-slate-400 font-medium leading-relaxed px-2">
+            Pilih <span className="text-slate-900 font-bold">Share</span> {">"} <span className="text-slate-900 font-bold">Embed a map</span> di Google Maps, lalu copy link yang ada di dalam <span className="italic text-slate-600">src="..."</span> atau tempel seluruh kode iframenya di sini.
+          </p>
         </div>
       </div>
 

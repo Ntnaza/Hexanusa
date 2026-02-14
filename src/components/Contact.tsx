@@ -61,15 +61,24 @@ export default async function Contact() {
 
         {/* Google Maps Section - Sekarang Dinamis */}
         <div className="w-full h-[400px] rounded-[40px] overflow-hidden border-4 border-white shadow-2xl">
-          <iframe 
-            src={settings.contactMaps} 
-            width="100%" 
-            height="100%" 
-            style={{ border: 0 }} 
-            allowFullScreen={true} 
-            loading="lazy" 
-            referrerPolicy="no-referrer-when-downgrade"
-          />
+          {(() => {
+            let mapUrl = settings.contactMaps;
+            if (mapUrl?.includes('<iframe')) {
+              const match = mapUrl.match(/src="([^"]+)"/);
+              if (match && match[1]) mapUrl = match[1];
+            }
+            return (
+              <iframe 
+                src={mapUrl} 
+                width="100%" 
+                height="100%" 
+                style={{ border: 0 }} 
+                allowFullScreen={true} 
+                loading="lazy" 
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            );
+          })()}
         </div>
       </div>
     </section>

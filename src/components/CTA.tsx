@@ -1,12 +1,16 @@
-import { MessageCircle, ArrowRight } from "lucide-react";
+import { MessageCircle } from "lucide-react";
 
-export default function CTA() {
+export default function CTA({ initialSettings }: { initialSettings: any }) {
+  const whatsappNumber = initialSettings?.contactPhone?.replace(/[^0-9]/g, "") || "";
+  const message = `Permisi, saya tertarik dengan produk dari ${initialSettings?.companyName || "Hexanusa"} ini.`;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
+
   return (
-    <section className="bg-slate-950 relative overflow-hidden text-center pt-24 pb-12">
+    <section id="cta" className="bg-slate-950 relative overflow-hidden text-center pt-24 pb-12">
       {/* Teks Misterius di Latar Belakang */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 select-none pointer-events-none opacity-[0.02]">
         <h2 className="text-[10rem] md:text-[16rem] font-black leading-none text-white whitespace-nowrap">
-          HEXANUSA TECH
+          {initialSettings?.companyName?.toUpperCase() || "HEXANUSA"} TECH
         </h2>
       </div>
 
@@ -18,18 +22,19 @@ export default function CTA() {
         </h2>
         <p className="text-slate-400 text-lg md:text-xl font-medium mb-12 max-w-xl mx-auto leading-relaxed">
           Konsultasikan ide Anda secara gratis dan dapatkan solusi teknologi 
-          terbaik dari tim ahli kami di Hexanusa.
+          terbaik dari tim ahli kami di {initialSettings?.companyName || "Hexanusa"}.
         </p>
         
         <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
-          <button className="group bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-blue-600 transition-all shadow-xl shadow-blue-500/10 flex items-center gap-3">
+          <a 
+            href={whatsappUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="group bg-blue-600 text-white px-10 py-5 rounded-2xl font-bold text-lg hover:bg-white hover:text-blue-600 transition-all shadow-xl shadow-blue-500/10 flex items-center gap-3"
+          >
             <MessageCircle className="w-6 h-6" />
             Hubungi via WhatsApp
-          </button>
-          <button className="group bg-transparent text-white border border-slate-800 px-10 py-5 rounded-2xl font-bold text-lg hover:bg-slate-800 transition-all flex items-center gap-3">
-            Lihat Detail Harga
-            <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform text-slate-500" />
-          </button>
+          </a>
         </div>
       </div>
     </section>

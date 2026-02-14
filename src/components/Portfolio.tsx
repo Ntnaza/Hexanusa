@@ -26,8 +26,11 @@ export default async function Portfolio() {
           {projects.map((project, index) => (
             <div 
               key={project.id} 
-              style={{ animationDelay: `${index * 150}ms` }}
-              className="group relative overflow-hidden rounded-[32px] aspect-[4/3] cursor-pointer shadow-xl shadow-slate-100 animate-in fade-in zoom-in-95 duration-700 fill-mode-both"
+              style={{ 
+                animationDelay: `${index * 150}ms`,
+                WebkitMaskImage: "-webkit-radial-gradient(white, black)"
+              }}
+              className="group relative overflow-hidden rounded-[32px] aspect-[4/3] cursor-pointer shadow-xl shadow-slate-100 animate-in fade-in zoom-in-95 duration-700 fill-mode-both isolate z-0 transform-gpu"
             >
               <img 
                 src={project.image} 

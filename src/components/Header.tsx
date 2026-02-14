@@ -14,7 +14,7 @@ declare global {
   }
 }
 
-export default function Header() {
+export default function Header({ initialSettings, initialServices }: { initialSettings: any, initialServices: any[] }) {
   const pathname = usePathname();
   const [isCollapsed, setIsCollapsed] = useState(false);
   
@@ -118,8 +118,8 @@ export default function Header() {
                 setIsCollapsed(false); 
               }}>
                 <img 
-                  src="/logo/hexa.png" 
-                  alt="Hexanusa" 
+                  src={initialSettings?.siteLogo || "/logo/hexa.png"} 
+                  alt={initialSettings?.companyName || "Hexanusa"} 
                   className="h-7 md:h-8 w-auto object-contain" 
                 />
               </Link>
@@ -152,9 +152,13 @@ export default function Header() {
                     ))}
                   </nav>
                   <div className="h-4 w-[1px] bg-slate-200" />
-                  <button className="bg-slate-900 text-white px-7 py-3 rounded-2xl text-[12px] font-black hover:bg-blue-600 transition-all shadow-sm active:scale-95">
+                  <Link 
+                    href="/#cta" 
+                    onClick={(e) => handleNavClick(e, "/#cta")}
+                    className="bg-slate-900 text-white px-7 py-3 rounded-2xl text-[12px] font-black hover:bg-blue-600 transition-all shadow-sm active:scale-95"
+                  >
                     Hire Us
-                  </button>
+                  </Link>
                 </motion.div>
               )}
             </AnimatePresence>
@@ -200,9 +204,13 @@ export default function Header() {
                 </Link>
               ))}
               <div className="h-[1px] bg-slate-100 w-full my-4" />
-              <button className="bg-blue-600 text-white w-full py-5 rounded-3xl font-black text-lg shadow-xl shadow-blue-100">
+              <Link 
+                href="/#cta" 
+                onClick={(e) => handleNavClick(e, "/#cta")}
+                className="bg-blue-600 text-white w-full py-5 rounded-3xl font-black text-lg shadow-xl shadow-blue-100 flex items-center justify-center"
+              >
                 Hubungi Kami Sekarang
-              </button>
+              </Link>
             </nav>
           </motion.div>
         )}

@@ -32,6 +32,7 @@ const menuItems = [
   { name: "Tentang Kami", href: "/admin/about", icon: Info },
   { name: "Layanan", href: "/admin/services", icon: Briefcase },
   { name: "Portofolio", href: "/admin/portfolio", icon: ImageIcon },
+  { name: "Testimonials", href: "/admin/testimonials", icon: MessageSquare },
   { name: "Tim Kami", href: "/admin/team", icon: Users },
   { name: "Pesan Masuk", href: "/admin/messages", icon: MessageSquare },
   { name: "Pengaturan Umum", href: "/admin/settings", icon: Globe },
