@@ -39,6 +39,7 @@ export default function AdminPortfolio() {
       try {
         const res = await fetch(`/api/portfolio?id=${id}`, {
           method: "DELETE",
+          cache: "no-store",
         });
         const result = await res.json();
 

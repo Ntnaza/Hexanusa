@@ -55,19 +55,31 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+    const idStr = searchParams.get("id");
 
-    if (!id) {
+    console.log("Mencoba menghapus Team Member ID:", idStr);
+
+    if (!idStr) {
       return NextResponse.json({ success: false, error: "ID tidak ditemukan" }, { status: 400 });
     }
 
-    await prisma.teammember.delete({
-      where: { id: Number(id) },
+    const id = parseInt(idStr);
+    if (isNaN(id)) {
+      return NextResponse.json({ success: false, error: "ID tidak valid" }, { status: 400 });
+    }
+
+    const deleted = await prisma.teammember.delete({
+      where: { id: id },
     });
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
+    console.log("Berhasil menghapus Team Member:", deleted.id);
+    return NextResponse.json({ success: true, deletedId: deleted.id });
+  } catch (error: any) {
     console.error("Team Delete API Error:", error);
-    return NextResponse.json({ success: false, error: "Gagal menghapus data tim" }, { status: 500 });
+    return NextResponse.json({ 
+      success: false, 
+      error: "Gagal menghapus anggota tim dari database",
+      details: error.message 
+    }, { status: 500 });
   }
 }

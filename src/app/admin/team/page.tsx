@@ -40,6 +40,7 @@ export default function AdminTeam() {
       try {
         const res = await fetch(`/api/team?id=${id}`, {
           method: "DELETE",
+          cache: "no-store",
         });
         const result = await res.json();
 

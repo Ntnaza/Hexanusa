@@ -57,19 +57,31 @@ export async function POST(req: Request) {
 export async function DELETE(req: Request) {
   try {
     const { searchParams } = new URL(req.url);
-    const id = searchParams.get("id");
+    const idStr = searchParams.get("id");
 
-    if (!id) {
+    console.log("Mencoba menghapus Portfolio ID:", idStr);
+
+    if (!idStr) {
       return NextResponse.json({ success: false, error: "ID tidak ditemukan" }, { status: 400 });
     }
 
-    await prisma.portfolio.delete({
-      where: { id: Number(id) },
+    const id = parseInt(idStr);
+    if (isNaN(id)) {
+      return NextResponse.json({ success: false, error: "ID tidak valid" }, { status: 400 });
+    }
+
+    const deleted = await prisma.portfolio.delete({
+      where: { id: id },
     });
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
+    console.log("Berhasil menghapus Portfolio:", deleted.id);
+    return NextResponse.json({ success: true, deletedId: deleted.id });
+  } catch (error: any) {
     console.error("Portfolio Delete API Error:", error);
-    return NextResponse.json({ success: false, error: "Gagal menghapus portofolio" }, { status: 500 });
+    return NextResponse.json({ 
+      success: false, 
+      error: "Gagal menghapus portofolio dari database",
+      details: error.message 
+    }, { status: 500 });
   }
 }
