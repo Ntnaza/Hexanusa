@@ -56,13 +56,15 @@ export async function savePortfolio(formData: FormData) {
 
 export async function deletePortfolio(id: number) {
   try {
+    console.log("Menghapus portfolio dengan ID:", id);
     await prisma.portfolio.delete({
       where: { id },
     });
     revalidatePath("/");
     revalidatePath("/admin/portfolio");
     return { success: true };
-  } catch (error) {
-    return { success: false };
+  } catch (error: any) {
+    console.error("Error deleting portfolio:", error);
+    return { success: false, error: error.message || "Gagal menghapus portfolio" };
   }
 }

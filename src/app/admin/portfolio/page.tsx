@@ -3,7 +3,6 @@
 import { useState, useEffect } from "react";
 import { Plus, Pencil, Trash2, ImageIcon, Loader2, ExternalLink } from "lucide-react";
 import PortfolioForm from "./PortfolioForm";
-import { deletePortfolio } from "./actions";
 import { useToast } from "@/components/admin/Toast";
 
 export default function AdminPortfolio() {
@@ -37,9 +36,22 @@ export default function AdminPortfolio() {
 
   const handleDelete = async (id: number) => {
     if (confirm("Hapus proyek ini secara permanen?")) {
-      await deletePortfolio(id);
-      toast("Proyek berhasil dihapus.", "success");
-      fetchPortfolio();
+      try {
+        const res = await fetch(`/api/portfolio?id=${id}`, {
+          method: "DELETE",
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          toast("Proyek berhasil dihapus.", "success");
+          fetchPortfolio();
+        } else {
+          toast(result.error || "Gagal menghapus proyek.", "error");
+        }
+      } catch (error) {
+        console.error("Delete error:", error);
+        toast("Terjadi kesalahan saat menghapus proyek.", "error");
+      }
     }
   };
 

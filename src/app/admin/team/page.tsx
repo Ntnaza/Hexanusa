@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import { Plus, Pencil, Trash2, Users, Loader2 } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import TeamForm from "./TeamForm";
-import { deleteTeamMember } from "./actions";
 import { useToast } from "@/components/admin/Toast";
 
 export default function AdminTeam() {
@@ -38,9 +37,22 @@ export default function AdminTeam() {
 
   const handleDelete = async (id: number) => {
     if (confirm("Apakah Anda yakin ingin menghapus anggota tim ini?")) {
-      await deleteTeamMember(id);
-      toast("Anggota tim berhasil dihapus.", "success");
-      fetchTeam();
+      try {
+        const res = await fetch(`/api/team?id=${id}`, {
+          method: "DELETE",
+        });
+        const result = await res.json();
+
+        if (result.success) {
+          toast("Anggota tim berhasil dihapus.", "success");
+          fetchTeam();
+        } else {
+          toast(result.error || "Gagal menghapus anggota tim.", "error");
+        }
+      } catch (error) {
+        console.error("Delete error:", error);
+        toast("Terjadi kesalahan saat menghapus anggota tim.", "error");
+      }
     }
   };
 

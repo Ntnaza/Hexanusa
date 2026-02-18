@@ -53,3 +53,23 @@ export async function POST(req: Request) {
     return NextResponse.json({ success: false, error: "Gagal menyimpan portofolio" }, { status: 500 });
   }
 }
+
+export async function DELETE(req: Request) {
+  try {
+    const { searchParams } = new URL(req.url);
+    const id = searchParams.get("id");
+
+    if (!id) {
+      return NextResponse.json({ success: false, error: "ID tidak ditemukan" }, { status: 400 });
+    }
+
+    await prisma.portfolio.delete({
+      where: { id: Number(id) },
+    });
+
+    return NextResponse.json({ success: true });
+  } catch (error) {
+    console.error("Portfolio Delete API Error:", error);
+    return NextResponse.json({ success: false, error: "Gagal menghapus portofolio" }, { status: 500 });
+  }
+}
