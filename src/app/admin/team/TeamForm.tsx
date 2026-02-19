@@ -1,9 +1,8 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { X, Save, Loader2, Linkedin, Github, Instagram, Upload, Camera } from "lucide-react";
+import { X, Save, Loader2, Linkedin, Github, Instagram, Upload, Camera, User, Briefcase, AlignLeft, Link as LinkIcon } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import { saveTeamMember } from "./actions";
 import { useToast } from "@/components/admin/Toast";
 
 export default function TeamForm({ 
@@ -88,7 +87,7 @@ export default function TeamForm({
       const result = await res.json();
       
       if (result.success) {
-        toast(`Anggota tim berhasil ${initialData ? 'diperbarui' : 'ditambahkan'}!`, "success");
+        toast(`Personel berhasil ${initialData ? 'diperbarui' : 'ditambahkan'}!`, "success");
         onClose();
       } else {
         throw new Error(result.error || "Gagal menyimpan");
@@ -104,80 +103,150 @@ export default function TeamForm({
 
   return (
     <AnimatePresence>
-      <div className="fixed inset-0 z-[300] flex items-center justify-center p-4">
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} onClick={onClose} className="absolute inset-0 bg-slate-950/60 backdrop-blur-md" />
+      <div className="fixed inset-0 z-[999] flex items-center justify-center p-4">
+        {/* Backdrop Ultra-Blur yang menutupi Navbar (Z-Index 999) */}
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          exit={{ opacity: 0 }} 
+          onClick={onClose} 
+          className="fixed inset-0 bg-slate-950/40 backdrop-blur-md" 
+        />
 
-        <motion.div initial={{ opacity: 0, scale: 0.9, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.9, y: 20 }} className="relative bg-white w-full max-w-2xl rounded-[32px] shadow-2xl overflow-hidden">
-          <div className="px-8 py-6 border-b border-slate-50 flex justify-between items-center bg-slate-50/50">
+        {/* Minimalist Floating Card */}
+        <motion.div 
+          initial={{ opacity: 0, scale: 0.95, y: 20 }} 
+          animate={{ opacity: 1, scale: 1, y: 0 }} 
+          exit={{ opacity: 0, scale: 0.95, y: 20 }} 
+          className="relative bg-white w-full max-w-md rounded-[28px] shadow-2xl overflow-hidden border border-slate-50 flex flex-col max-h-[90vh]"
+        >
+          {/* Compact Header */}
+          <div className="px-8 py-5 border-b border-slate-50 flex justify-between items-center bg-slate-50/30">
             <div>
-              <h2 className="text-lg font-black text-slate-900 tracking-tight">{initialData ? "Edit Anggota" : "Tambah Anggota"}</h2>
-              <p className="text-[10px] text-slate-400 font-bold uppercase tracking-widest mt-0.5">Konfigurasi Data Personel</p>
+              <h2 className="text-sm font-black text-slate-900 uppercase tracking-widest">{initialData ? "Edit Member" : "New Member"}</h2>
             </div>
-            <button onClick={onClose} className="p-2 hover:bg-white rounded-full transition-all border border-transparent hover:border-slate-100">
-              <X className="w-5 h-5 text-slate-400" />
+            <button onClick={onClose} className="p-1.5 hover:bg-white rounded-lg transition-all border border-transparent hover:border-slate-100 text-slate-300 hover:text-slate-600">
+              <X className="w-4 h-4" />
             </button>
           </div>
 
-          <form onSubmit={handleSubmit} className="p-8 space-y-6 max-h-[75vh] overflow-y-auto custom-scrollbar">
-            <div className="flex flex-col items-center gap-4">
+          <form onSubmit={handleSubmit} className="p-8 space-y-6 overflow-y-auto custom-scrollbar">
+            {/* Portrait Upload */}
+            <div className="space-y-2">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Member Portrait</label>
               <div 
                 onClick={() => fileInputRef.current?.click()}
-                className="w-28 h-28 rounded-3xl bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden group relative hover:border-blue-400 transition-all shadow-inner"
+                className="w-24 h-24 mx-auto rounded-3xl bg-slate-50 border-2 border-dashed border-slate-200 flex flex-col items-center justify-center cursor-pointer overflow-hidden group relative hover:border-blue-400 transition-all shadow-inner"
               >
                 {preview ? (
                   <img src={preview} alt="preview" className="w-full h-full object-cover" />
                 ) : (
                   <div className="flex flex-col items-center text-slate-400">
-                    <Camera className="w-6 h-6 mb-1" />
-                    <span className="text-[8px] font-black uppercase tracking-widest">Pilih Foto</span>
+                    <Camera className="w-5 h-5 mb-1" />
+                    <span className="text-[8px] font-black uppercase tracking-widest text-center">Upload</span>
                   </div>
                 )}
-                <div className="absolute inset-0 bg-blue-600/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all text-white">
-                  <Upload className="w-5 h-5" />
+                <div className="absolute inset-0 bg-blue-600/80 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all text-white">
+                  <Upload className="w-4 h-4" />
                 </div>
               </div>
               <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className="hidden" />
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {/* Identitas */}
+            <div className="space-y-4">
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Nama Lengkap</label>
-                <input type="text" value={formData.name} onChange={(e) => setFormData({...formData, name: e.target.value})} className="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-sm font-bold shadow-inner" required />
+                <div className="flex items-center gap-2 mb-1 ml-1">
+                  <User className="w-3 h-3 text-blue-600" />
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Full Name</label>
+                </div>
+                <input 
+                  type="text" 
+                  value={formData.name} 
+                  onChange={(e) => setFormData({...formData, name: e.target.value})} 
+                  placeholder="John Doe"
+                  className="w-full px-5 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-xs font-bold shadow-inner" 
+                  required 
+                />
               </div>
+
               <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Jabatan / Role</label>
-                <input type="text" value={formData.role} onChange={(e) => setFormData({...formData, role: e.target.value})} className="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-sm font-bold shadow-inner" required />
+                <div className="flex items-center gap-2 mb-1 ml-1">
+                  <Briefcase className="w-3 h-3 text-blue-600" />
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Job Role</label>
+                </div>
+                <input 
+                  type="text" 
+                  value={formData.role} 
+                  onChange={(e) => setFormData({...formData, role: e.target.value})} 
+                  placeholder="Creative Director"
+                  className="w-full px-5 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-xs font-bold shadow-inner" 
+                  required 
+                />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center gap-2 mb-1 ml-1">
+                  <AlignLeft className="w-3 h-3 text-blue-600" />
+                  <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest">Short Bio</label>
+                </div>
+                <textarea 
+                  rows={2} 
+                  value={formData.bio} 
+                  onChange={(e) => setFormData({...formData, bio: e.target.value})} 
+                  placeholder="Tell us about this member..."
+                  className="w-full px-5 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-xs font-medium resize-none shadow-inner" 
+                  required 
+                />
               </div>
             </div>
 
-            <div className="space-y-2">
-              <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1">Biografi Singkat</label>
-              <textarea rows={3} value={formData.bio} onChange={(e) => setFormData({...formData, bio: e.target.value})} className="w-full px-5 py-3.5 rounded-xl bg-slate-50 border border-slate-100 focus:outline-none focus:border-blue-600 focus:bg-white transition-all text-sm font-medium resize-none shadow-inner" required></textarea>
+            {/* Social Connect */}
+            <div className="space-y-3 pt-2">
+              <label className="text-[9px] font-black text-slate-400 uppercase tracking-widest ml-1">Social Networks</label>
+              <div className="grid grid-cols-1 gap-2">
+                <div className="flex items-center bg-slate-50 rounded-xl border border-slate-100 px-4 focus-within:border-blue-600 transition-all">
+                  <Linkedin className="w-3.5 h-3.5 text-blue-600 shrink-0" />
+                  <input 
+                    type="text" 
+                    value={formData.linkedin} 
+                    onChange={(e) => setFormData({...formData, linkedin: e.target.value})} 
+                    placeholder="LinkedIn URL"
+                    className="w-full bg-transparent border-none py-2.5 px-3 outline-none text-[10px] font-bold" 
+                  />
+                </div>
+                <div className="flex items-center bg-slate-50 rounded-xl border border-slate-100 px-4 focus-within:border-blue-600 transition-all">
+                  <Instagram className="w-3.5 h-3.5 text-pink-600 shrink-0" />
+                  <input 
+                    type="text" 
+                    value={formData.instagram} 
+                    onChange={(e) => setFormData({...formData, instagram: e.target.value})} 
+                    placeholder="Instagram URL"
+                    className="w-full bg-transparent border-none py-2.5 px-3 outline-none text-[10px] font-bold" 
+                  />
+                </div>
+                <div className="flex items-center bg-slate-50 rounded-xl border border-slate-100 px-4 focus-within:border-blue-600 transition-all">
+                  <Github className="w-3.5 h-3.5 text-slate-900 shrink-0" />
+                  <input 
+                    type="text" 
+                    value={formData.github} 
+                    onChange={(e) => setFormData({...formData, github: e.target.value})} 
+                    placeholder="GitHub URL"
+                    className="w-full bg-transparent border-none py-2.5 px-3 outline-none text-[10px] font-bold" 
+                  />
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">LinkedIn</label>
-                <input type="text" value={formData.linkedin} onChange={(e) => setFormData({...formData, linkedin: e.target.value})} placeholder="URL..." className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:border-blue-600 transition-all text-[11px] font-medium shadow-inner" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">Github</label>
-                <input type="text" value={formData.github} onChange={(e) => setFormData({...formData, github: e.target.value})} placeholder="URL..." className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:border-blue-600 transition-all text-[11px] font-medium shadow-inner" />
-              </div>
-              <div className="space-y-2">
-                <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest ml-1 flex items-center gap-2">Instagram</label>
-                <input type="text" value={formData.instagram} onChange={(e) => setFormData({...formData, instagram: e.target.value})} placeholder="URL..." className="w-full px-4 py-3 rounded-xl bg-slate-50 border border-slate-100 focus:border-blue-600 transition-all text-[11px] font-medium shadow-inner" />
-              </div>
-            </div>
-
-            <div className="pt-4 flex gap-3 pb-2">
-              <button type="button" onClick={onClose} className="flex-1 py-4 rounded-xl font-black text-[10px] uppercase tracking-widest text-slate-400 bg-slate-50 hover:bg-slate-100 transition-all">Batal</button>
+            {/* Buttons */}
+            <div className="pt-4 flex gap-3">
+              <button type="button" onClick={onClose} className="flex-1 py-3.5 rounded-xl font-black text-[9px] uppercase tracking-widest text-slate-400 bg-slate-50 hover:bg-slate-100 transition-all">Cancel</button>
               <button 
                 type="submit"
                 disabled={loading}
-                className="flex-[2] bg-slate-900 text-white py-4 rounded-xl font-black text-[10px] uppercase tracking-widest hover:bg-blue-600 transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-70"
+                className="flex-[2] bg-slate-900 text-white py-3.5 rounded-xl font-black text-[9px] uppercase tracking-widest hover:bg-blue-600 transition-all shadow-xl flex items-center justify-center gap-2 disabled:opacity-70"
               >
-                {loading ? <Loader2 className="w-4 h-4 animate-spin" /> : <><Save className="w-4 h-4" /> Simpan Personel</>}
+                {loading ? <Loader2 className="w-3.5 h-3.5 animate-spin" /> : <><Save className="w-3.5 h-3.5" /> Save Member</>}
               </button>
             </div>
           </form>

@@ -93,7 +93,7 @@ export default function Sidebar() {
         animate={{ width: isCollapsed ? iconLaneWidth : 260 }}
         transition={{ type: "spring", stiffness: 400, damping: 40 }}
         className={`
-          fixed lg:sticky top-0 left-0 h-screen bg-[#0F172A] border-r border-white/5 flex flex-col z-[190] shadow-2xl
+          fixed lg:sticky top-0 left-0 h-screen bg-[#0F172A] border-r border-white/5 flex flex-col z-[9999] shadow-2xl
           overflow-visible 
           ${isOpen ? "translate-x-0" : "-translate-x-full lg:translate-x-0"}
           lg:transition-none transition-transform duration-300

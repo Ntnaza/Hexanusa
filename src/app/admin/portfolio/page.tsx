@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Plus, Pencil, Trash2, ImageIcon, Loader2, ExternalLink } from "lucide-react";
 import PortfolioForm from "./PortfolioForm";
 import { useToast } from "@/components/admin/Toast";
+import ConfirmModal from "@/components/admin/ConfirmModal";
 
 export default function AdminPortfolio() {
   const { toast } = useToast();
@@ -11,6 +12,10 @@ export default function AdminPortfolio() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingData, setEditingData] = useState<any>(null);
+
+  // State untuk ConfirmModal
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   const fetchPortfolio = async () => {
     setLoading(true);
@@ -34,25 +39,30 @@ export default function AdminPortfolio() {
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (id: number) => {
-    if (confirm("Hapus proyek ini secara permanen?")) {
-      try {
-        const res = await fetch(`/api/portfolio?id=${id}`, {
-          method: "DELETE",
-          cache: "no-store",
-        });
-        const result = await res.json();
+  const handleDeleteClick = (id: number) => {
+    setDeletingId(id);
+    setConfirmOpen(true);
+  };
 
-        if (result.success) {
-          toast("Proyek berhasil dihapus.", "success");
-          fetchPortfolio();
-        } else {
-          toast(result.error || "Gagal menghapus proyek.", "error");
-        }
-      } catch (error) {
-        console.error("Delete error:", error);
-        toast("Terjadi kesalahan saat menghapus proyek.", "error");
+  const handleDeleteConfirm = async () => {
+    if (!deletingId) return;
+    
+    try {
+      const res = await fetch(`/api/portfolio?id=${deletingId}`, {
+        method: "DELETE",
+        cache: "no-store",
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        toast("Proyek berhasil dihapus.", "success");
+        fetchPortfolio();
+      } else {
+        toast(result.error || "Gagal menghapus proyek.", "error");
       }
+    } catch (error) {
+      console.error("Delete error:", error);
+      toast("Terjadi kesalahan saat menghapus proyek.", "error");
     }
   };
 
@@ -109,7 +119,7 @@ export default function AdminPortfolio() {
                       <button onClick={() => handleEdit(project)} className="p-3 rounded-xl bg-slate-50 text-slate-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm">
                         <Pencil className="w-4 h-4" />
                       </button>
-                      <button onClick={() => handleDelete(project.id)} className="p-3 rounded-xl bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white transition-all shadow-sm">
+                      <button onClick={() => handleDeleteClick(project.id)} className="p-3 rounded-xl bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white transition-all shadow-sm">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -131,6 +141,15 @@ export default function AdminPortfolio() {
         isOpen={isModalOpen} 
         onClose={() => { setIsModalOpen(false); fetchPortfolio(); }} 
         initialData={editingData} 
+      />
+
+      <ConfirmModal
+        isOpen={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        title="Hapus Portofolio?"
+        message="Tindakan ini akan menghapus karya dari galeri secara permanen. Anda tidak dapat membatalkan aksi ini."
+        confirmText="Ya, Hapus"
       />
     </div>
   );

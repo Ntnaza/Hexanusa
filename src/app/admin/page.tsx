@@ -15,6 +15,7 @@ import {
   Cloud
 } from "lucide-react";
 import Link from "next/link";
+import VisitorChart from "@/components/admin/VisitorChart";
 
 export default async function AdminDashboard() {
   // 1. Fetch data dasar
@@ -148,48 +149,9 @@ export default async function AdminDashboard() {
           })}
         </div>
 
-        {/* Center: Visitor Chart */}
-        <div className="xl:col-span-5 bg-white border border-slate-100 rounded-3xl p-6 shadow-sm flex flex-col">
-          <div className="flex items-center justify-between mb-8">
-            <div className="flex items-center gap-3">
-              <div className="p-2 bg-blue-50 text-blue-600 rounded-xl">
-                <BarChart3 className="w-4 h-4" />
-              </div>
-              <h3 className="font-black text-slate-900 uppercase tracking-widest text-[10px]">Kunjungan 7 Hari Terakhir</h3>
-            </div>
-          </div>
-          
-          <div className="flex-1 flex items-end justify-between gap-2 pt-10 pb-2 px-2">
-            {chartData.map((data, i) => {
-              // Hitung tinggi dalam % (minimal 4% jika ada data tapi kecil, maksimal 100%)
-              const percentage = data.count > 0 ? Math.max((data.count / maxCount) * 100, 8) : 0;
-              
-              return (
-                <div key={i} className="flex-1 flex flex-col items-center gap-3 group">
-                  <div className="w-full relative flex flex-col items-center h-full justify-end">
-                    {/* Tooltip on hover */}
-                    <div className="absolute -top-8 opacity-0 group-hover:opacity-100 transition-all bg-slate-900 text-white text-[9px] font-black px-2 py-1 rounded-lg pointer-events-none whitespace-nowrap z-20">
-                      {data.count} Visitors
-                    </div>
-                    
-                    {/* Bar */}
-                    <div 
-                      style={{ height: `${percentage}%` }}
-                      className={`w-full max-w-[28px] rounded-t-lg transition-all duration-700 relative ${i === 6 ? 'bg-blue-600 shadow-[0_0_20px_rgba(37,99,235,0.4)]' : 'bg-slate-100 group-hover:bg-blue-200'}`}
-                    >
-                      {/* Highlight untuk hari ini */}
-                      {i === 6 && (
-                        <div className="absolute -top-1.5 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-blue-600 animate-ping"></div>
-                      )}
-                    </div>
-                  </div>
-                  <span className={`text-[9px] font-black uppercase tracking-tighter ${i === 6 ? 'text-blue-600' : 'text-slate-400'}`}>
-                    {i === 6 ? 'Hari Ini' : data.day}
-                  </span>
-                </div>
-              );
-            })}
-          </div>
+        {/* Center: Visitor Chart (Professional Trading Style) */}
+        <div className="xl:col-span-5 flex flex-col h-full">
+          <VisitorChart data={chartData} maxCount={maxCount} />
         </div>
 
         {/* Right: Quick Actions */}

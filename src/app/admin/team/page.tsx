@@ -5,6 +5,7 @@ import { Plus, Pencil, Trash2, Users, Loader2 } from "lucide-react";
 import * as LucideIcons from "lucide-react";
 import TeamForm from "./TeamForm";
 import { useToast } from "@/components/admin/Toast";
+import ConfirmModal from "@/components/admin/ConfirmModal";
 
 export default function AdminTeam() {
   const { toast } = useToast();
@@ -12,6 +13,10 @@ export default function AdminTeam() {
   const [loading, setLoading] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingData, setEditingData] = useState<any>(null);
+
+  // State untuk ConfirmModal
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [deletingId, setDeletingId] = useState<number | null>(null);
 
   const fetchTeam = async () => {
     setLoading(true);
@@ -35,25 +40,30 @@ export default function AdminTeam() {
     setIsModalOpen(true);
   };
 
-  const handleDelete = async (id: number) => {
-    if (confirm("Apakah Anda yakin ingin menghapus anggota tim ini?")) {
-      try {
-        const res = await fetch(`/api/team?id=${id}`, {
-          method: "DELETE",
-          cache: "no-store",
-        });
-        const result = await res.json();
+  const handleDeleteClick = (id: number) => {
+    setDeletingId(id);
+    setConfirmOpen(true);
+  };
 
-        if (result.success) {
-          toast("Anggota tim berhasil dihapus.", "success");
-          fetchTeam();
-        } else {
-          toast(result.error || "Gagal menghapus anggota tim.", "error");
-        }
-      } catch (error) {
-        console.error("Delete error:", error);
-        toast("Terjadi kesalahan saat menghapus anggota tim.", "error");
+  const handleDeleteConfirm = async () => {
+    if (!deletingId) return;
+
+    try {
+      const res = await fetch(`/api/team?id=${deletingId}`, {
+        method: "DELETE",
+        cache: "no-store",
+      });
+      const result = await res.json();
+
+      if (result.success) {
+        toast("Anggota tim berhasil dihapus.", "success");
+        fetchTeam();
+      } else {
+        toast(result.error || "Gagal menghapus anggota tim.", "error");
       }
+    } catch (error) {
+      console.error("Delete error:", error);
+      toast("Terjadi kesalahan saat menghapus anggota tim.", "error");
     }
   };
 
@@ -108,7 +118,7 @@ export default function AdminTeam() {
                       <button onClick={() => handleEdit(member)} className="p-3 rounded-xl bg-slate-50 text-slate-600 hover:bg-blue-600 hover:text-white transition-all shadow-sm">
                         <Pencil className="w-4 h-4" />
                       </button>
-                      <button onClick={() => handleDelete(member.id)} className="p-3 rounded-xl bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white transition-all shadow-sm">
+                      <button onClick={() => handleDeleteClick(member.id)} className="p-3 rounded-xl bg-slate-50 text-slate-400 hover:bg-red-500 hover:text-white transition-all shadow-sm">
                         <Trash2 className="w-4 h-4" />
                       </button>
                     </div>
@@ -130,6 +140,15 @@ export default function AdminTeam() {
         isOpen={isModalOpen} 
         onClose={() => { setIsModalOpen(false); fetchTeam(); }} 
         initialData={editingData} 
+      />
+
+      <ConfirmModal
+        isOpen={confirmOpen}
+        onClose={() => setConfirmOpen(false)}
+        onConfirm={handleDeleteConfirm}
+        title="Hapus Anggota Tim?"
+        message="Data anggota tim akan dihapus permanen dari sistem. Pastikan Anda sudah yakin sebelum melanjutkan."
+        confirmText="Ya, Hapus Anggota"
       />
     </div>
   );
